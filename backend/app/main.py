@@ -21,8 +21,8 @@ if ENV == "DEV":
         docs_url=None,
         redoc_url=None,
         openapi_url="/api/openapi.json",
-        title="compta",
-        description="compta",
+        title="Picsou",
+        description="Picsou",
         version=os.environ.get("API_VERSION", "1.0.0"),
     )
     app.mount("/api/static", StaticFiles(directory="static"), name="static")
