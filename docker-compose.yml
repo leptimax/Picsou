@@ -6,7 +6,7 @@ services:
     image: nginx:1.17.10
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /srv/docker/comptability/logs:/var/log/nginx/
+      - /srv/docker/picsou/logs:/var/log/nginx/
     ports:
       - 10132:80
     depends_on:
@@ -15,7 +15,7 @@ services:
 
   backend:
     restart: unless-stopped
-    image: comptability/backend:devel
+    image: picsou/backend:devel
     tty: true
     build: 
       context: backend
@@ -24,10 +24,10 @@ services:
       - .env
     volumes:
         - ./backend:/app
-        - /srv/docker/comptability/logs:/logs
+        - /srv/docker/picsou/logs:/logs
 
   frontend:
-      image: comptability/frontend:devel
+      image: picsou/frontend:devel
       stdin_open: true
       build:
           context: frontend

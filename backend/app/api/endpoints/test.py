@@ -4,4 +4,4 @@ router = APIRouter()
 
 @router.get("")
 async def get_info():
-    return "ceci est un test"
+    return "ceci est un test de l'appel au back"
