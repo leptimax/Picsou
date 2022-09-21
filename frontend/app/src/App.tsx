@@ -11,6 +11,7 @@ import {Brightness7, Brightness4, } from "@mui/icons-material";
 import { Home } from "./Home";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Test } from "./components/Test";
+import { SideBar } from "./components/Sidebar";
 
 
 export const SearchContext = createContext({});
@@ -72,6 +73,7 @@ export const App: FC = () => {
         styleOverrides:{
           body:{
             background:
+              
               themeMode === 'light' ? 'linear-gradient(to left bottom, #ffbe4c, #7375c1)'
                                     : 'linear-gradient(to left bottom, #ac6000, #0b2362)',
           },//#1bc652 #fce325
@@ -99,12 +101,15 @@ export const App: FC = () => {
             <Container
             
               style={{
+                backgroundRepeat:"no-repeat",
+                backgroundAttachment:"fixed !important",
                 maxWidth: "90vw",
                 maxHeight: "90vh",
               }}
             >
                 <Container className="test">
                 {/* <SideBar onAuthUpdate={onAuthUpdate}/> */}
+                <SideBar />
                 <Switch>
                   <Route exact path="/" component={() => <Home />} />
                   <Route exact path="/test" component={() => <Test/> }/>

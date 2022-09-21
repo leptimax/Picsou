@@ -1,17 +1,11 @@
-import { Button, CSSObject, Drawer, Grid, Icon, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Theme, Typography, useTheme } from "@mui/material"
+import { CSSObject, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, styled, Theme, useTheme } from "@mui/material"
 import React from "react"
 import { FC } from "react"
 
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import HomeIcon from '@mui/icons-material/Home';
-import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
-import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-// import { ListIcon } from "./ListIconsSidebar";
-import { FunctionsOutlined } from "@mui/icons-material";
+
+import { LIST_ICON } from "../utils/SideBarItem";
 import { useHistory } from "react-router-dom";
 
 const drawerWidth = 200;
@@ -55,7 +49,7 @@ const DrawerPerso = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open
   );
 
 
-const LIST_ICON = [[<HomeIcon /> , "Accueil","/"],[<AddIcon/>, "Ajout","/"]]
+
 
 export const Test: FC<{}> = ({}) => {
 
@@ -85,103 +79,67 @@ export const Test: FC<{}> = ({}) => {
                             onClick={() => history.push("/")}/>
                     <List sx={{textAlign:"center"}}>
                         <Stack>
-                            { open ? 
-                            (<IconButton color="primary" onClick={handleDrawerClose}>
-                                <ChevronLeftIcon/>
-                            </IconButton>) : (
-                            <IconButton color="primary" onClick={handleDrawerOpen}>
-                                <ChevronRightIcon/>
-                            </IconButton> )  
+                        <ListItem key={"display"} disablePadding sx={{ display: 'block' }}>
+                        
+                            { open ? (
+                            <ListItemButton sx={{
+                                                    minHeight: 48,
+                                                    justifyContent: open ? 'initial' : 'center',
+                                                    px: 2.5,
+                                                }}
+                                onClick={handleDrawerClose}>
+                                    
+                                <ListItemIcon sx={{
+                                                    minWidth: 0,
+                                                    mr: open ? 3 : 'auto',
+                                                    justifyContent: 'center',
+                                                }}>
+                                    <ChevronLeftIcon/>
+                                </ListItemIcon>
+                            </ListItemButton>
+
+                            ) : (
                             
-                            }
+                            <ListItemButton sx={{
+                                                    minHeight: 48,
+                                                    justifyContent: open ? 'initial' : 'center',
+                                                    px: 2.5,
+                                                }}
+                                onClick={handleDrawerOpen}>
+
+                                <ListItemIcon sx={{
+                                                    minWidth: 0,
+                                                    mr: open ? 3 : 'auto',
+                                                    justifyContent: 'center',
+                                                }}>
+                                    <ChevronRightIcon/>
+                                </ListItemIcon> 
+                            </ListItemButton>
+                            
+                            )}
+                            
+                            </ListItem>
                             {
                             LIST_ICON.map((element) => ( 
-                            
-                                // <div>
-                                // <IconButton color="primary" sx={{minHeight:48}} onClick={() => console.log(element[2])}>
-                                //     {element[0]}
-                                // </IconButton>
-                                // {element[1]}
-                                // </div>
 
                                 <ListItem key={element[1]} disablePadding sx={{ display: 'block' }}>
-                                    <ListItemButton
-                                        sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
-                                        px: 2.5,
-                                        }}
-                                    >
-                                        <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                        }}
-                                        >
-                                            <IconButton color="primary" sx={{minHeight:48}} onClick={() => console.log(element[2])}>
+                                    <ListItemButton sx={{
+                                                            minHeight: 48,
+                                                            justifyContent: open ? 'initial' : 'center',
+                                                            px: 2.5,
+                                                        }}>
+                                        <ListItemIcon sx={{
+                                                            minWidth: 0,
+                                                            mr: open ? 3 : 'auto',
+                                                            justifyContent: 'center',
+                                                        }}>
                                                  {element[0]}
-                                             </IconButton>
                                         </ListItemIcon>
                                     <ListItemText primary={element[1]} sx={{ opacity: open ? 1 : 0, color:"white" }} />
                                 </ListItemButton>
                             </ListItem>
-
-                            // <ListItem key={element[1]} disablePadding sx={{display:'block'}}>
-                            //     <ListItemButton sx={{
-                            //         minHeight: 48,
-                            //         justifyContent: open ? 'initial' : 'center',
-                            //         px: 2.5,
-                            //         }}>
-                            //         <ListItemIcon
-                            //         sx={{
-                            //             minWidth: 0,
-                            //             mr: open ? 3 : 'auto',
-                            //             justifyContent: 'center',
-                            //         }}
-                            //         >
-                            //             {element[0]}
-                            //         </ListItemIcon>
-                            //         <ListItemText primary={element[1]}
-                            //     </ListItemButton>
-                            // </ListItem>
                             
                             ))}
-                            {/* <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                                <ListItemButton
-                                    sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                    }}
-                                >
-                                    <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                    >
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </ListItem> */}
-                            {/* <IconButton color="primary" onClick={() => console.log("coucou")}>
-                                <HomeIcon/>
-                            </IconButton>
-                            <IconButton color="primary" onClick={() => console.log("coucou")}>
-                                <AddIcon/>
-                            </IconButton>
-                            <IconButton color="primary" onClick={() => console.log("coucou")}>
-                                <EqualizerIcon/>
-                            </IconButton>
-                            <IconButton color="primary" onClick={() => console.log("coucou")}>
-                                <SearchIcon/>
-                            </IconButton>
-                            <IconButton color="primary" onClick={() => console.log("coucou")}>
-                                <AccountTreeIcon/>
-                            </IconButton> */}
                         </Stack>
                     </List>
                 </Stack>

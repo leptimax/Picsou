@@ -15,7 +15,6 @@ export const Home: FC<{}> = ({}) => {
     
     return(
         <>
-        <Test />
             <Stack>
                 {data ? (<p>{data}</p>) : (<p>coucou</p>)}
             </Stack>
