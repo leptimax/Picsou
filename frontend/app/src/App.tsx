@@ -1,4 +1,4 @@
-import React, { useState, FC, createContext } from "react";
+import React, { useState, FC, createContext, useEffect } from "react";
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -12,9 +12,12 @@ import { Home } from "./Home";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Test } from "./components/Test";
 import { SideBar } from "./components/Sidebar";
+import { Authentication } from "./components/AuthenticationPage";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
 
-export const SearchContext = createContext({});
+export const AuthContext = createContext({});
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
@@ -24,6 +27,29 @@ export const App: FC = () => {
 
   const cookies = new Cookies();
   const [themeMode, setThemeMode] = useState<PaletteMode>(cookies.get("theme") || "dark");
+
+  const [user,setUser] = useState(undefined)
+  const [connect,setConnect] = useState(false)
+  console.log("dans le App : ",user?.user)
+
+
+  useEffect(() => {
+    const tempInfo = JSON.parse(localStorage.getItem("user"))
+    if(tempInfo === null){
+      setConnect(false)
+    }
+    else{
+      setUser(tempInfo)
+      setConnect(true)
+    }
+    console.log(tempInfo === null)
+  },[])
+
+
+
+
+
+  
 
   const theme = createTheme({
     
@@ -107,19 +133,27 @@ export const App: FC = () => {
                 maxHeight: "90vh",
               }}
             >
+              <AuthContext.Provider value={{user}}>
+                {connect ? (
                 <Container className="test">
-                {/* <SideBar onAuthUpdate={onAuthUpdate}/> */}
-                <SideBar />
-                <Switch>
-                  <Route exact path="/" component={() => <Home />} />
-                  <Route exact path="/test" component={() => <Test/> }/>
+                  <SideBar setConnect={setConnect}/>
+                  <Switch>
+                    <Route exact path="/" component={() => <Home />} />
+                    {/* <Route exact path="/test" component={() => <Authentication /> }/> */}
                   </Switch>
-                </Container>
+                </Container> 
+                ) : (
+                
+                  <Authentication setUser={setUser} setConnect={setConnect}/>
+                  )
+                  
+              }
+              </AuthContext.Provider>
             </Container>
           </Router>
         </QueryClientProvider>
       </CssBaseline>
-    // </ThemeProvider>
+    </ThemeProvider>
   );
 };
 

@@ -44,7 +44,8 @@
     "tslib": "2.3.0",
     "use-query-params": "^1.2.3",
     "typescript": "3.9.7",
-    "yup": "0.32.11"
+    "yup": "0.32.11",
+    "firebase": "9.10.0"
   },
   "scripts": {
     "start": "./node_modules/react-scripts/bin/react-scripts.js start",

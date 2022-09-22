@@ -37,6 +37,8 @@ services:
       environment:
           NODE_ENV: development
           CHOKIDAR_USEPOLLING: "true"
+      env_file:
+        - ./frontend/.env
   
 #   mysql:
 #     image: mysql:latest

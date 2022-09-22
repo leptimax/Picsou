@@ -72,8 +72,8 @@ else:
         docs_url=None,
         redoc_url=None,
         openapi_url=None,
-        title="Babar",
-        description="Babar",
+        title="Picsou",
+        description="Picsou",
         version=os.environ.get("API_VERSION", "1.0.0"),
     )
 
