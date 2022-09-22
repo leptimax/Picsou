@@ -163,6 +163,7 @@ export const SideBar: FC<{setConnect(value:boolean)}> = ({setConnect}) => {
                                                 }}>
                                     <LogoutIcon/>
                                 </ListItemIcon> 
+                                <ListItemText primary="Déconnexion" sx={{ opacity: open ? 1 : 0, color:"white" }} />
                             </ListItemButton>
                         </Stack>
                     </List>
