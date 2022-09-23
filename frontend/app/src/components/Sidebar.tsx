@@ -10,6 +10,7 @@ import { LIST_ICON } from "../utils/SideBarItem";
 import { useHistory } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { RemoveToken } from "../utils/Auth";
 
 const drawerWidth = 200;
 
@@ -52,7 +53,7 @@ const DrawerPerso = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open
   );
 
 
-export const SideBar: FC<{setConnect(value:boolean)}> = ({setConnect}) => {
+export const SideBar: FC<{setConnect:(value:boolean)=>any}> = ({setConnect}) => {
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -69,7 +70,7 @@ export const SideBar: FC<{setConnect(value:boolean)}> = ({setConnect}) => {
     const logout = async () => {
       await signOut(auth)
       setConnect(false)
-      localStorage.clear()
+      RemoveToken()
     }
 
     return(

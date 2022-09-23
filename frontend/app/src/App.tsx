@@ -15,6 +15,7 @@ import { SideBar } from "./components/Sidebar";
 import { Authentication } from "./components/AuthenticationPage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+import { RefreshToken } from "./utils/Auth";
 
 
 export const AuthContext = createContext({});
@@ -30,7 +31,8 @@ export const App: FC = () => {
 
   const [user,setUser] = useState(undefined)
   const [connect,setConnect] = useState(false)
-  console.log("dans le App : ",user?.user)
+  console.log("dans le App : ",Date.now(),Date.now() / 1000)
+
 
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export const App: FC = () => {
   },[])
 
 
-
+  RefreshToken()
 
 
   

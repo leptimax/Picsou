@@ -5,6 +5,10 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebas
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { relative } from "path";
 import { auth } from "../firebase";
+import { SetToken } from "../utils/Auth";
+
+
+
 
 
 export const Authentication: FC<{
@@ -39,7 +43,7 @@ export const Authentication: FC<{
         if(password !== "" && email !== ""){
            try {
             const userTemp = await signInWithEmailAndPassword(auth,email,password)
-            localStorage.setItem("user",JSON.stringify(userTemp))
+            SetToken(userTemp)
             setConnect(true)
            } catch (error) {
             console.log(error)
