@@ -56,7 +56,7 @@ export const Authentication: FC<{
     return(
 
         <>
-          <img src="Picsou.png" style={{width:"300px", 
+          <img src="Picsou.png" style={{width:"33vh", 
                                         position:"absolute",
                                         top:"5vh",
                                         left:"40vw"
@@ -66,10 +66,10 @@ export const Authentication: FC<{
               component="form"
               sx={{
                 textAlign:"center",
-                '& .MuiTextField-root': {  width: '90%',marginBottom:"20px" },
+                '& .MuiTextField-root': {  width: '22.5vw',marginBottom:"1vh" },
                 backgroundColor:"rgba(33,33,33,0.75)",
-                width:"25vw",
-                height:"30vh",
+                width:"27.5vw",
+                height: errorPwd ? "35vh" : "30vh",
                 position:"absolute",
                 top:"40vh",
                 left:"35.6vw",
@@ -79,8 +79,8 @@ export const Authentication: FC<{
               autoComplete="off"
             >
                 
-                <Typography variant="h4" sx={{marginTop:"20px",marginBottom:"20px"}}>Authentification</Typography>
-                    
+                <Typography variant="h4" sx={{marginTop:"2vh",marginBottom:"2vh"}}>Authentification</Typography>
+                    {errorPwd && <p style={{color:"red"}}>Identifiant ou mot de passe incorrect</p>}
                     <TextField
                             required
                             error={errorMail}
@@ -115,7 +115,7 @@ export const Authentication: FC<{
                             />
 
                     <Button  variant="contained" color="warning" sx={{
-                        marginTop:"10px"
+                        marginTop:"1vh"
                     }} onClick={handleSubmit}
                         >
                         Se Connecter

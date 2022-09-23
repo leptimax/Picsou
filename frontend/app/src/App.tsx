@@ -31,7 +31,7 @@ export const App: FC = () => {
 
   const [user,setUser] = useState(undefined)
   const [connect,setConnect] = useState(false)
-  console.log("dans le App : ",Date.now(),Date.now() / 1000)
+  console.log("dans le App : ", process.env["REACT_APP_API_KEY"])
 
 
 
