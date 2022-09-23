@@ -91,6 +91,11 @@ export const Authentication: FC<{
                         autoComplete="current-password"
                         variant="standard"
                         onChange={(e) => {setEmail(e.target.value)}}
+                        onKeyDown={(e) => {
+                            if(e.key === "Enter"){
+                                handleSubmit()
+                            }
+                        }}
                         />
                         <TextField
                             required
@@ -102,6 +107,11 @@ export const Authentication: FC<{
                             autoComplete="current-password"
                             variant="standard"
                             onChange={(e) => (setPassword(e.target.value))}
+                            onKeyDown={(e) => {
+                                if(e.key === "Enter"){
+                                    handleSubmit()
+                                }
+                            }}
                             />
 
                     <Button  variant="contained" color="warning" sx={{
