@@ -135,7 +135,10 @@ export const SideBar: FC<{setConnect:(value:boolean)=>any}> = ({setConnect}) => 
                                                             minHeight: 48,
                                                             justifyContent: open ? 'initial' : 'center',
                                                             px: 2.5,
-                                                        }}>
+                                                        }}
+                                                        onClick={() => {
+                                                          let link = element[2]
+                                                          history.push(link)}}>
                                         <ListItemIcon sx={{
                                                             minWidth: 0,
                                                             mr: open ? 3 : 'auto',

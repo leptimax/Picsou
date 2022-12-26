@@ -16,3 +16,8 @@ code {
 html {
   height: 100%;
 }
+
+.textfield_form {
+  margin-left: "5vw";
+  margin-right: "5vw";
+}

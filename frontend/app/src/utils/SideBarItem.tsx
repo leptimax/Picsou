@@ -13,7 +13,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 export const LIST_ICON = [
 
     [<HomeIcon /> , "Accueil","/"],
-    [<AddIcon/>, "Ajout","/"],
+    [<AddIcon/>, "Ajout","/add"],
     [<SearchIcon />, "Rechercher","/"],
     [<EqualizerIcon/>, "Statistiques","/"],
     [<AccountTreeIcon/>, "test","/"],

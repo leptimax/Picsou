@@ -16,6 +16,7 @@ import { Authentication } from "./components/AuthenticationPage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { RefreshToken } from "./utils/Auth";
+import { AddTransaction } from "./components/AddTransaction";
 
 
 export const AuthContext = createContext({});
@@ -141,7 +142,8 @@ export const App: FC = () => {
                   <SideBar setConnect={setConnect}/>
                   <Switch>
                     <Route exact path="/" component={() => <Home />} />
-                    {/* <Route exact path="/test" component={() => <Authentication /> }/> */}
+                    <Route exact path="/add" component={() => <AddTransaction /> }/>
+                    <Route exact path="/test" component={() => <Test /> }/>
                   </Switch>
                 </Container> 
                 ) : (
