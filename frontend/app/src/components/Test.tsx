@@ -1,89 +1,39 @@
-import { Button, CSSObject, Drawer, FormControl, Grid, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, OutlinedInput, Stack, styled, TextField, Theme, useTheme } from "@mui/material"
-import React, { useEffect, useState } from "react"
-import { FC } from "react"
-import { makeStyles } from "@mui/styles"
+import { Stack } from "@mui/system";
+import React, {FC, useContext, useEffect} from "react";
+import {useQuery} from 'react-query'
+import { AuthContext, userContext } from "../App";
+import { authorizedFetch } from "../utils/Fetch";
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../firebase";
 
-import {addDoc,collection} from "@firebase/firestore"
-import { firestore } from "../firebase"
-import { Box } from "@mui/system"
-import { relative } from "path"
-import { useHistory } from "react-router-dom"
-
-
-const style = makeStyles({
-  customInputLabel: {
-    "& legend": {
-      visibility: "visible"
-    }
-  }
-});
-
-export const Test: FC<{}> = async ({}) => {
-
-  const classes = style()
+export const Test: FC<{}> = ({}) => {
 
 
-  const [choiceType,setChoiceType] = useState(true)
-  const [type,setType] = useState("AUCUN")
-  const [category,setCategory] = useState("AUCUNE")
-  const [month,setMonth] = useState("JANVIER")
-  const [day,setDay] = useState("1")
-  const [year,setYear] = useState("1970")
-  const [destination,setDestination] = useState("")
-  const [amount,setAmount] = useState(0)
-  const [details,setDetails] = useState("")
-
-  const [errorType,setErrorType] = useState(false)
-  const [errorCategory,setErrorCategory] = useState(false)
-  const [errorDestination,setErrorDestination] = useState(false)
-  const [errorAmount,setErrorAmount] = useState(false)
-
-  const bdd = collection(firestore,"test")
-  const history = useHistory()
-
-
-
-
-  const snapshot = await bdd.get()
-  console.log("coucou",snapshot)
-  snapshot.forEach((doc) => {
-  console.log(doc.id, '=>', doc.data());
-});
-
-  return(
-    <>
-      <Button>COUCOU</Button>
-    </>
-
-
-
-
-  )
-}
-
-
-
-
-//   const bdd = collection(firestore,"test")
-//   console.log("coucou",process.env)
-
-//   const handleClick = async (e) => {
-//     e.preventDefault();
+    const {data,isLoading,error} = useQuery("TEST",() => authorizedFetch("/api/test","GET"))
+    const user = useContext(AuthContext)
     
-//     let data = {
-//       message:"coucou"
-//     };
 
-//     try {
-//       addDoc(bdd,data)
-//   } catch(e){
-//     console.log(e)
-//   }
-// }
+    const getElement = async () => {
+        const col = collection(firestore,"test")
+        const docs = await getDocs(col)
+        docs.forEach((doc) => {console.log(doc.id, " : ",doc.data())})
+    }
+    
+    getElement()
+    
+    // const querySnapshot = await getDocs(collection(firestore,"test"));
+    // querySnapshot.forEach((doc) => {
+    // // doc.data() is never undefined for query doc snapshots
+    // console.log(doc.id, " => ", doc.data());
+    // });
 
-//     return(
-//         <>
-//            <Button onClick={handleClick}>test</Button>
-//            <p>{process.env.API_KEY}</p>
-//         </>
-//     )
+    return(
+        <>
+            <Stack>
+                {data ? (<p>{data}</p>) : (<p>coucou</p>)}
+                
+            </Stack>
+        </>
+    )
+
+}
