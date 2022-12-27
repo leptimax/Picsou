@@ -205,17 +205,35 @@ export const AddTransaction: FC<{}> = ({}) => {
     
     if ((destination !== "") && (amount !== 0) && (type !== "AUCUN") && (category !== "AUCUNE")){
 
-      let data = {
-        "date":{"année":year,
-                "mois":month,
-                "jour":day
-              },
-        "type de mouvement":type,
-        "categorie":category,
-        "destination":destination,
-        "montant":amount,
-        "detail":details
-      };
+      let data = {}
+      if(type === "GAIN"){
+        data = {
+          "date":{"année":year,
+                  "mois":month,
+                  "jour":day
+                },
+          "type de mouvement":type,
+          "categorie":category,
+          "provenance":destination,
+          "montant":amount,
+          "detail":details
+        };
+      }
+      else{
+        data = {
+          "date":{"année":year,
+                  "mois":month,
+                  "jour":day
+                },
+          "type de mouvement":type,
+          "categorie":category,
+          "destination":destination,
+          "montant":amount,
+          "detail":details
+        };
+        
+      }
+      
 
       try {
         addDoc(bdd,data)
