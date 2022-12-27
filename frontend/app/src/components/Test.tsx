@@ -31,7 +31,6 @@ export const Test: FC<{}> = ({}) => {
         <>
             <Stack>
                 {data ? (<p>{data}</p>) : (<p>coucou</p>)}
-                
             </Stack>
         </>
     )
