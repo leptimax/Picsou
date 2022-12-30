@@ -11,7 +11,8 @@ import { relative } from "path";
 
 
 
-export const Test: FC<{top:string,left:string}> = ({top,left}) => {
+
+export const DashboardEarn: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()
@@ -21,12 +22,10 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
     const [positionLeft,setPositionLeft] = useState("0%")
 
     const [value,setValue] = useState(0.0)
-    const [extra,setExtra] = useState(0)
-    const [rent,setRent] = useState(0)
-    const [shopping,setShopping] = useState(0)
-    const [oil,setOil] = useState(0)
-    const [activity, setActivity] = useState(0)
-    const [valueGlobal,setValueGlobal] = useState(0)
+    const [extra,setExtra] = useState(0.0)
+    const [pay,setPay] = useState(0.0)
+    const [gouv,setGouv] = useState(0.0)
+    const [valueGlobal,setValueGlobal] = useState(0.0)
     
 
     useEffect(() => {
@@ -57,19 +56,16 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const getElement = async () => {
-        
-        const query_loss = query(collection(firestore,"test"),where("type de mouvement","==","DEPENSES"))
+        const query_earn = query(collection(firestore,"test"),where("type de mouvement","==","GAINS"))
         
 
         let extra_temp = 0
-        let rent_temp = 0
-        let shopping_temp = 0
-        let oil_temp = 0
-        let activity_temp = 0
+        let pay_temp = 0
+        let gouv_temp = 0
         let valueGlobalTemp = 0
         let element;
 
-        const snapshot = await getDocs(query_loss)
+        const snapshot = await getDocs(query_earn)
         snapshot.forEach((doc) => {
           if(doc.data()){
             element = doc.data()
@@ -79,36 +75,25 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
               }
-              case "Courses":{
-                shopping_temp = shopping_temp + parseFloat(element["montant"])
+              case "CAF/Bourse/Aide Gouv":{
+                gouv_temp = gouv_temp + parseFloat(element["montant"])
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
               }
-              case "Loyer":{
-                rent_temp = rent_temp + parseFloat(element["montant"])
+              case "Salaire":{
+                pay_temp = pay_temp + parseFloat(element["montant"])
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
               }
-              case "Activité/Sortie":{
-                activity_temp = activity_temp + parseFloat(element["montant"])
-                valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
-                break;
-              }
-              case "Essences":{
-                oil_temp = oil_temp + parseFloat(element["montant"])
-                valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
-                break;
-              }
+              
             }
             
           }
         
         })
-        setActivity(activity_temp)
+        setPay(pay_temp)
         setExtra(extra_temp)
-        setOil(oil_temp)
-        setRent(rent_temp)
-        setShopping(shopping_temp)
+        setGouv(gouv_temp)
         setValueGlobal(valueGlobalTemp)
         setValue(valueGlobalTemp)
         
@@ -119,8 +104,8 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
         trigger: 'item'
       },
       title:{
-        text: "Dépenses",
-        left:"40%",
+        text: "Gains",
+        left:"43%",
         top:"1%",
         textStyle:{
           show: true,
@@ -132,7 +117,7 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
       
       series: [
         {
-          name: 'Dépenses',
+          name: 'Gains',
           type: 'pie',
           radius: ['50%', '80%'],
           avoidLabelOverlap: true,
@@ -159,11 +144,9 @@ export const Test: FC<{top:string,left:string}> = ({top,left}) => {
             show: true
           },
           data: [
-            { value: rent, name: 'Loyer' },
-            { value: shopping, name: 'Courses' },
-            { value: oil, name: 'Essences' },
-            { value: activity, name: 'Sorties' },
-            { value: extra, name: 'Extra' }
+            { value: gouv, name: 'CAF' },
+            { value: pay, name: 'Salaire' },
+            { value: extra, name: 'Extra' },
           ],
         }
       ]

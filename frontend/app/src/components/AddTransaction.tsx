@@ -27,10 +27,10 @@ export const AddTransaction: FC<{}> = ({}) => {
 
   const maxYear = "2200"
   const minYear = "1970"
-  const TYPE = ["AUCUN","GAIN","DEPENSES"]
+  const TYPE = ["AUCUN","GAINS","DEPENSES"]
   const CATEGORY = {
 
-    "GAIN":["AUCUNE","CAF/Bourse/Aide Gouv","Cours Particuliers","Remboursements","Salaire","Extra"],
+    "GAINS":["AUCUNE","CAF/Bourse/Aide Gouv","Salaire","Extra"],
     "DEPENSES":["AUCUNE","Loyer","Courses","Essences","Activité/Sortie","Extra"]
 
   }
@@ -206,7 +206,7 @@ export const AddTransaction: FC<{}> = ({}) => {
     if ((destination !== "") && (amount !== 0) && (type !== "AUCUN") && (category !== "AUCUNE")){
 
       let data = {}
-      if(type === "GAIN"){
+      if(type === "GAINS"){
         data = {
           "date":{"année":year,
                   "mois":month,
@@ -302,8 +302,8 @@ export const AddTransaction: FC<{}> = ({}) => {
                             onChange={handleChangeCategory}
                             helperText="Sélectionner la catégorie de votre mouvement"  >
                   {
-                    (type === "GAIN" ? (
-                      CATEGORY.GAIN.map((element) => {
+                    (type === "GAINS" ? (
+                      CATEGORY.GAINS.map((element) => {
                         return(
                           <MenuItem key={element} value={element}>{element}</MenuItem>
                         )
@@ -362,7 +362,7 @@ export const AddTransaction: FC<{}> = ({}) => {
                         />
       
           </Grid>
-          {type === "GAIN" ? 
+          {type === "GAINS" ? 
             
             ( <TextField      sx={{width:"20vw",
                                     marginTop:"5vh"

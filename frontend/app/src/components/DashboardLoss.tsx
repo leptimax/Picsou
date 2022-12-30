@@ -11,7 +11,7 @@ import { relative } from "path";
 
 
 
-export const Test: FC<{top:string,left:string}> = ({top,left}) => {
+export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()

@@ -32,7 +32,6 @@ export const App: FC = () => {
 
   const [user,setUser] = useState(undefined)
   const [connect,setConnect] = useState(false)
-  console.log("dans le App : ", process.env["REACT_APP_API_KEY"])
 
 
 
@@ -45,7 +44,6 @@ export const App: FC = () => {
       setUser(tempInfo)
       setConnect(true)
     }
-    console.log(tempInfo === null)
   },[])
 
 
