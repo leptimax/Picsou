@@ -8,6 +8,7 @@ import { firestore } from "../firebase";
 import ReactEcharts from "echarts-for-react"; 
 import { Grid, Typography } from "@mui/material";
 import { relative } from "path";
+import { Test } from "./Test";
 
 
 
@@ -20,7 +21,7 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
     const [positionLeft,setPositionLeft] = useState("0%")
 
-    const [value,setValue] = useState(0.0)
+    // const [value,setValue] = useState(0.0)
     const [extra,setExtra] = useState(0)
     const [rent,setRent] = useState(0)
     const [shopping,setShopping] = useState(0)
@@ -37,23 +38,23 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
     useEffect(() => {
 
-      if(value < 10){
+      if(valueGlobal < 10){
         setPositionLeft("44.2%")
       }
-      else if((value >= 10) && (value <100)){
+      else if((valueGlobal >= 10) && (valueGlobal <100)){
         setPositionLeft("43.5%")
       }
-      else if((value >= 100) && (value < 1000)){
+      else if((valueGlobal >= 100) && (valueGlobal < 1000)){
         setPositionLeft("41.5%")
       }
-      else if((value >= 1000) && (value < 10000)){
+      else if((valueGlobal >= 1000) && (valueGlobal < 10000)){
         setPositionLeft("39.5%")
       }
-      else if((value >= 10000) && (value < 100000)){
+      else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
         setPositionLeft("37.5%")
       }
 
-    },[value])
+    },[valueGlobal])
 
 
     const getElement = async () => {
@@ -68,6 +69,7 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
         let activity_temp = 0
         let valueGlobalTemp = 0
         let element;
+
 
         const snapshot = await getDocs(query_loss)
         snapshot.forEach((doc) => {
@@ -110,13 +112,22 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
         setRent(rent_temp)
         setShopping(shopping_temp)
         setValueGlobal(valueGlobalTemp)
-        setValue(valueGlobalTemp)
+        // setValue(valueGlobalTemp)
         
     }
 
     const option_loss= {
       tooltip: {
         trigger: 'item'
+      },
+      legend: {
+        top: '94%',
+        left: 'center',
+        textStyle:{
+          color:"white",
+          fontSize:17
+          
+        }
       },
       title:{
         text: "Dépenses",
@@ -145,13 +156,17 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
             show: true,
             color:"#fff",
             fontWeight:"bold",
-            fontSize:12,
+            fontSize:15,
+            formatter: function (params){
+                return  params.value + "€"
+              
+             },
             // position: 'center'
           },
           emphasis: {
             label: {
               show: true,
-              fontSize: 24,
+              fontSize: 30,
               fontWeight: 'bold'
             }
           },
@@ -175,11 +190,11 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
     const onChartHover = (params) => {
       console.log('Chart clicked', params.data.value);
-      setValue(params.data.value)
+      // setValue(params.data.value)
     };
 
     const onChartOut = () => {
-      setValue(valueGlobal)
+      // setValue(valueGlobal)
     }
   
     const onEvents = {
@@ -189,7 +204,6 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
     };
 
     return(
-      <Stack>
         <Stack sx={{
                     width:"40vw",
                     height:"50vh",
@@ -209,11 +223,11 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
                                 fontSize:35,
                                 fontWeight:"bold",
                                 
-            }}>{value.toFixed(2)}€</Typography>
+            }}>{valueGlobal.toFixed(2)}€</Typography>
+              
             
         </Stack>
         
-      </Stack>
         
     )
 

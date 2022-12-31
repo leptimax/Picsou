@@ -18,8 +18,8 @@ export const Home: FC<{}> = ({}) => {
     return(
         <Stack>
             {/* {data ? (<p>{data}</p>) : (<p>coucou</p>)} */}
-            <DashboardLoss top={"45vh"} left={"-12vw"}/>
-            <DashboardEarn top={"-5vh"} left={"38vw"}/>
+            <DashboardLoss top={"44vh"} left={"-12vw"}/>
+            <DashboardEarn top={"-6vh"} left={"38vw"}/>
         </Stack>
     )
 
