@@ -5,6 +5,9 @@ import { AuthContext, userContext } from "./App";
 import { authorizedFetch } from "./utils/Fetch";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebase";
+import { DashboardLoss } from "./components/DashboardLoss";
+import { DashboardEarn } from "./components/DashboardEarn";
+import { Test } from "./components/Test";
 
 export const Home: FC<{}> = ({}) => {
 
@@ -14,12 +17,12 @@ export const Home: FC<{}> = ({}) => {
     
 
     return(
-        <>
-            <Stack>
-                {data ? (<p>{data}</p>) : (<p>coucou</p>)}
-                
-            </Stack>
-        </>
+        <Stack>
+            
+            <Test/>
+            <DashboardLoss top={"44vh"} left={"-12vw"}/>
+            <DashboardEarn top={"-6vh"} left={"38vw"}/>
+        </Stack>
     )
 
 }

@@ -1,38 +1,35 @@
 import { Stack } from "@mui/system";
-import React, {FC, useContext, useEffect} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
 import {useQuery} from 'react-query'
 import { AuthContext, userContext } from "../App";
 import { authorizedFetch } from "../utils/Fetch";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firebase";
+import ReactEcharts from "echarts-for-react"; 
+import { AppBar, Box, Button, Grid, IconButton, InputBase, TextField, Toolbar, Typography } from "@mui/material";
+import { relative } from "path";
+import SearchIcon from '@mui/icons-material/Search';
 
-export const Test: FC<{}> = ({}) => {
+
+export const Test: FC<{}> = () => {
 
 
-    const {data,isLoading,error} = useQuery("TEST",() => authorizedFetch("/api/test","GET"))
-    const user = useContext(AuthContext)
-    
-
-    const getElement = async () => {
-        const col = collection(firestore,"test")
-        const docs = await getDocs(col)
-        docs.forEach((doc) => {console.log(doc.id, " : ",doc.data())})
-    }
-    
-    getElement()
-    
-    // const querySnapshot = await getDocs(collection(firestore,"test"));
-    // querySnapshot.forEach((doc) => {
-    // // doc.data() is never undefined for query doc snapshots
-    // console.log(doc.id, " => ", doc.data());
-    // });
 
     return(
-        <>
-            <Stack>
-                {data ? (<p>{data}</p>) : (<p>coucou</p>)}
-            </Stack>
-        </>
+      <Box sx={{ flexGrow: 1, position:"absolute",top:"5%", width:"60%",left:"20%" }}>
+      <AppBar position="static" sx={{borderRadius:"25px"}}>
+        <Toolbar >
+          
+        <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Rechercher une transaction"
+      />
+          <Button variant="contained" color="warning" sx={{borderRadius:"25px"}}>
+            <SearchIcon/>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
     )
 
 }
