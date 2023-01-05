@@ -6,45 +6,30 @@ import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firebase";
 import ReactEcharts from "echarts-for-react"; 
-import { Grid, Typography } from "@mui/material";
+import { AppBar, Box, Button, Grid, IconButton, InputBase, TextField, Toolbar, Typography } from "@mui/material";
 import { relative } from "path";
+import SearchIcon from '@mui/icons-material/Search';
 
 
+export const Test: FC<{}> = () => {
 
-export const Test: FC<{value}> = ({value}) => {
 
-    
-    const [positionLeft,setPositionLeft] = useState("0%")
-    console.log(value)
-    useEffect(() => {
-
-        if(value < 10){
-          setPositionLeft("44.2%")
-        }
-        else if((value >= 10) && (value <100)){
-          setPositionLeft("43.5%")
-        }
-        else if((value >= 100) && (value < 1000)){
-          setPositionLeft("41.5%")
-        }
-        else if((value >= 1000) && (value < 10000)){
-          setPositionLeft("39.5%")
-        }
-        else if((value >= 10000) && (value < 100000)){
-          setPositionLeft("37.5%")
-        }
-  
-      },[value])
 
     return(
-         <Typography sx={{position:"absolute",
-                                left:positionLeft,
-                                top:"45%",
-                                textAlign:"center",
-                                fontSize:35,
-                                fontWeight:"bold",
-                                
-            }}>{value.toFixed(2)}€</Typography>
+      <Box sx={{ flexGrow: 1, position:"absolute",top:"5%", width:"60%",left:"20%" }}>
+      <AppBar position="static" sx={{borderRadius:"25px"}}>
+        <Toolbar >
+          
+        <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Rechercher une transaction"
+      />
+          <Button variant="contained" color="warning" sx={{borderRadius:"25px"}}>
+            <SearchIcon/>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
     )
 
 }
