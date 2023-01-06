@@ -11,7 +11,7 @@ import { relative } from "path";
 import SearchIcon from '@mui/icons-material/Search';
 
 
-export const Test: FC<{}> = () => {
+export const SearchBar: FC<{}> = () => {
 
     const [value,setValue] = useState("")
     // console.log(value)
