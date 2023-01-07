@@ -16,8 +16,9 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()
-    const months = date.getMonth()
-    const year = date.getFullYear()
+    const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
+    const DAY = date.getDate()
+    const YEAR = date.getFullYear()
 
     const [positionLeft,setPositionLeft] = useState("0%")
 
@@ -51,7 +52,7 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
         setPositionLeft("39.5%")
       }
       else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
-        setPositionLeft("37.5%")
+        setPositionLeft("38.5%")
       }
 
     },[valueGlobal])
@@ -59,7 +60,7 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
     const getElement = async () => {
         
-        const query_loss = query(collection(firestore,"test"),where("type de mouvement","==","DEPENSES"))
+        const query_loss = query(collection(firestore,"test"),where("type de mouvement","==","DEPENSES"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
         
 
         let extra_temp = 0
@@ -145,7 +146,7 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
         {
           name: 'Dépenses',
           type: 'pie',
-          radius: ['50%', '80%'],
+          radius: ['45%', '70%'],
           avoidLabelOverlap: true,
           itemStyle: {
             borderRadius: 10,

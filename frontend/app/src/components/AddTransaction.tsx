@@ -21,7 +21,10 @@ const style = makeStyles({
 export const AddTransaction: FC<{}> = ({}) => {
 
   const classes = style()
-
+  const date = new Date()
+  const ACTUAL_MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
+  const ACTUAL_DAY = date.getDate()
+  const ACTUAL_YEAR = date.getFullYear()
   
 
 
@@ -88,9 +91,9 @@ export const AddTransaction: FC<{}> = ({}) => {
   const [choiceType,setChoiceType] = useState(true)
   const [type,setType] = useState("AUCUN")
   const [category,setCategory] = useState("AUCUNE")
-  const [month,setMonth] = useState("JANVIER")
-  const [day,setDay] = useState("1")
-  const [year,setYear] = useState("1970")
+  const [month,setMonth] = useState(ACTUAL_MONTH)
+  const [day,setDay] = useState(ACTUAL_DAY.toString())
+  const [year,setYear] = useState(ACTUAL_YEAR.toString())
   const [destination,setDestination] = useState("")
   const [amount,setAmount] = useState(0)
   const [details,setDetails] = useState("")
@@ -106,9 +109,9 @@ export const AddTransaction: FC<{}> = ({}) => {
   useEffect(() => {
     if(type === "AUCUN"){
       setCategory("AUCUNE")
-      setMonth("JANVIER")
-      setDay("1")
-      setYear("1970")
+      setMonth(ACTUAL_MONTH)
+      setDay(ACTUAL_DAY.toString())
+      setYear(ACTUAL_YEAR.toString())
       setDestination("")
       setAmount(0)
       setDetails("")
