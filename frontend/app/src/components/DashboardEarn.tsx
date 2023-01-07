@@ -169,7 +169,7 @@ export const DashboardEarn: FC<{top:string,left:string}> = ({top,left}) => {
     }
 
     const onChartHover = (params) => {
-      console.log('Chart clicked', params.data.value);
+      // console.log('Chart clicked', params.data.value);
     };
 
     const onChartOut = () => {
