@@ -8,6 +8,8 @@ import { firestore } from "./firebase";
 import { DashboardLoss } from "./components/DashboardLoss";
 import { DashboardEarn } from "./components/DashboardEarn";
 import { Test } from "./components/Test";
+import { SearchBar } from "./components/SearchBar";
+import { ButtonDashboard } from "./components/ButtonDashboard";
 
 export const Home: FC<{}> = ({}) => {
 
@@ -19,7 +21,9 @@ export const Home: FC<{}> = ({}) => {
     return(
         <Stack>
             
-            <Test/>
+            {/* <Test/> */}
+            <ButtonDashboard/>
+            <SearchBar/>
             <DashboardLoss top={"44vh"} left={"-12vw"}/>
             <DashboardEarn top={"-6vh"} left={"38vw"}/>
         </Stack>

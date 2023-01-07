@@ -13,38 +13,29 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import { useHistory } from "react-router-dom";
 
-export const Test: FC<{}> = () => {
+export const ButtonDashboard: FC<{}> = () => {
 
-    // const [value,setValue] = useState("")
-    // // console.log(value)
-    // const date = new Date()
-    // const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    // const DAY = date.getDate()
-    // const YEAR = date.getFullYear()
-    // console.log(MONTH,DAY,YEAR)
 
-    // const getElement = async () => {
-    //   const query_info = query(collection(firestore,"test"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
-      
+    const history = useHistory()
+    
+    const handleClickAdd = () => {
+        history.push("/add")
+    }
 
-    //   let extra_temp = 0
-    //   let pay_temp = 0
-    //   let gouv_temp = 0
-    //   let valueGlobalTemp = 0
-    //   let element;
+    const handleClickHistory = () => {
+        history.push("/history")
+    }
 
-    //   const snapshot = await getDocs(query_info)
-    //   snapshot.forEach((doc) => {
-    //     console.log(doc.data())
-    //   })
-    // }
-    // getElement()
+    const handleClickStatistic = () => {
+        history.push("/statistic")
+    }
 
     return(
       <>
-       {/* <Box sx={{backgroundColor:"rgb(36,36,36)", position:"absolute", top:"20%", width:"15%",height:"15%", borderRadius:"20px"}}> */}
         <Button variant="outlined" 
+                onClick={handleClickAdd}
                 sx={{position:"absolute",
                       width:"15%",
                       height:"15%",
@@ -52,12 +43,14 @@ export const Test: FC<{}> = () => {
                       left:"10%", 
                       borderRadius:"20px", 
                       backgroundColor:"rgb(36,36,36)", 
-                      borderColor:"rgb(36,36,36)"}} >
+                      borderColor:"rgb(36,36,36)"}} 
+                      >
           <AddIcon fontSize="large" sx={{color:"white", marginLeft:"5%"}} />
           <Typography sx={{color:"white", fontSize:"20px"}}>Nouvelle transaction</Typography>
         </Button>
 
         <Button variant="outlined" 
+                onClick={handleClickHistory}
                 sx={{position:"absolute",
                       width:"15%",
                       height:"15%",
@@ -71,6 +64,7 @@ export const Test: FC<{}> = () => {
         </Button>
 
         <Button variant="outlined" 
+                onClick={handleClickStatistic}
                 sx={{position:"absolute",
                       width:"15%",
                       height:"15%",
@@ -82,7 +76,6 @@ export const Test: FC<{}> = () => {
           <BarChartIcon fontSize="large" sx={{color:"white"}} />
           <Typography sx={{color:"white", fontSize:"20px", paddingLeft:"10%", marginRight:"10%"}}>Statistiques</Typography>
         </Button>
-      {/* </Box> */}
       </>
     )
 

@@ -208,9 +208,9 @@ export const AddTransaction: FC<{}> = ({}) => {
       let data = {}
       if(type === "GAINS"){
         data = {
-          "date":{"année":year,
+          "date":{"année":parseInt(year),
                   "mois":month,
-                  "jour":day
+                  "jour":parseInt(day)
                 },
           "type de mouvement":type,
           "categorie":category,
@@ -221,9 +221,9 @@ export const AddTransaction: FC<{}> = ({}) => {
       }
       else{
         data = {
-          "date":{"année":year,
+          "date":{"année":parseInt(year),
                   "mois":month,
-                  "jour":day
+                  "jour":parseInt(day)
                 },
           "type de mouvement":type,
           "categorie":category,
