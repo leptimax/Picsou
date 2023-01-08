@@ -76,7 +76,7 @@ export const DashboardEarn: FC<{top:string,left:string}> = ({top,left}) => {
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
               }
-              case "CAF/Bourse/Aide Gouv":{
+              case "CAF":{
                 gouv_temp = gouv_temp + parseFloat(element["montant"])
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;

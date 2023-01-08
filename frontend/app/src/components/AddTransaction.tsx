@@ -10,6 +10,7 @@ import { relative } from "path"
 import { useHistory } from "react-router-dom"
 
 
+
 const style = makeStyles({
   customInputLabel: {
     "& legend": {
@@ -25,6 +26,7 @@ export const AddTransaction: FC<{}> = ({}) => {
   const ACTUAL_MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
   const ACTUAL_DAY = date.getDate()
   const ACTUAL_YEAR = date.getFullYear()
+  const ID = Math.floor(date.getTime()).toString() + Math.floor(Math.random()*200000).toString()
   
 
 
@@ -33,7 +35,7 @@ export const AddTransaction: FC<{}> = ({}) => {
   const TYPE = ["AUCUN","GAINS","DEPENSES"]
   const CATEGORY = {
 
-    "GAINS":["AUCUNE","CAF/Bourse/Aide Gouv","Salaire","Extra"],
+    "GAINS":["AUCUNE","CAF","Salaire","Extra"],
     "DEPENSES":["AUCUNE","Loyer","Courses","Essences","Activité/Sortie","Extra"]
 
   }
@@ -211,6 +213,7 @@ export const AddTransaction: FC<{}> = ({}) => {
       let data = {}
       if(type === "GAINS"){
         data = {
+          "id":ID,
           "date":{"année":parseInt(year),
                   "mois":month,
                   "jour":parseInt(day)
@@ -224,6 +227,7 @@ export const AddTransaction: FC<{}> = ({}) => {
       }
       else{
         data = {
+          "id":ID,
           "date":{"année":parseInt(year),
                   "mois":month,
                   "jour":parseInt(day)
