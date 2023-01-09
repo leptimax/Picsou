@@ -1,4 +1,4 @@
-import { Button, CSSObject, Drawer, FormControl, Grid, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, OutlinedInput, Stack, styled, TextField, Theme, useTheme } from "@mui/material"
+import { Button, CSSObject, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Drawer, FormControl, Grid, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, OutlinedInput, Stack, styled, TextField, Theme, useTheme } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import { FC } from "react"
 import { makeStyles } from "@mui/styles"
@@ -103,6 +103,7 @@ export const InfoTransaction: FC<{}> = ({}) => {
   const [errorCategory,setErrorCategory] = useState(false)
   const [errorDestination,setErrorDestination] = useState(false)
   const [errorAmount,setErrorAmount] = useState(false)
+  const [open,setOpen] = useState(false)
 
   const [id,setId] = useState("")
 
@@ -289,8 +290,8 @@ export const InfoTransaction: FC<{}> = ({}) => {
       
 
       try {
-        const Info = doc(firestore,"test",id)
-        await deleteDoc(Info)
+        const info = doc(firestore,"test",id)
+        await deleteDoc(info)
         const bdd = doc(firestore,"test",id)
         await setDoc(bdd,data)
     } catch(e){
@@ -302,10 +303,30 @@ export const InfoTransaction: FC<{}> = ({}) => {
     setErrorType(false)
     setErrorCategory(false)
 
-    history.push("/")
+    history.push("/history")
   }
 
 }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleDelete = async() => {
+    try{
+      const info = doc(firestore,"test",id)
+      await deleteDoc(info)
+    }
+    catch(e){
+      console.log(e)
+    }
+    setOpen(false)
+    history.push("/history")
+    
+  }
 
   return(
     <>
@@ -475,8 +496,43 @@ export const InfoTransaction: FC<{}> = ({}) => {
            
     </Box>
     <Button  
+            variant="contained" color="error" 
+            type="submit"
+            onClick={handleClickOpen}
+            sx={{ 
+                  color:"black",
+                  width:"10vw",
+                  position:"absolute",
+                  left:"10vw",
+                  bottom:"5vh"
+            }} >
+                  Supprimer
+    </Button>
+
+    <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle id="alert-delete-transaction" sx={{textAlign:"center"}}>
+          Avertissement
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-delete-description">
+            Vous êtes sur le point de supprimer cette transaction, souhaitez vous continuer ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Annuler</Button>
+          <Button onClick={handleDelete} autoFocus sx={{color:"red"}}>
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+    <Button  
             variant="contained" color="warning" 
-            type="sublit"
+            type="submit"
             onClick={handleSubmit}
             sx={{ 
                   width:"10vw",
