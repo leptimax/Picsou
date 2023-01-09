@@ -12,7 +12,7 @@ import { Test } from "./History";
 
 
 
-export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
+export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()
@@ -206,10 +206,10 @@ export const DashboardLoss: FC<{top:string,left:string}> = ({top,left}) => {
 
     return(
         <Stack sx={{
-                    width:"40vw",
-                    height:"50vh",
+                    width:"35vw",
+                    height:"45vh",
                     backgroundColor:"rgb(0,0,0,0.3)",
-                    position:"relative",
+                    position:"absolute",
                     left:left,
                     top:top,
                     borderRadius:"25px"

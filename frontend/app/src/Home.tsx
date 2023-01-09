@@ -5,8 +5,8 @@ import { AuthContext, userContext } from "./App";
 import { authorizedFetch } from "./utils/Fetch";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebase";
-import { DashboardLoss } from "./components/DashboardLoss";
-import { DashboardEarn } from "./components/DashboardEarn";
+import { DashboardLoss } from "./components/LossChart";
+import { DashboardEarn } from "./components/EarnChart";
 import { TotalDashboard } from "./components/TotalDashboard";
 import { SearchBar } from "./components/SearchBar";
 import { ButtonDashboard } from "./components/ButtonDashboard";
@@ -28,8 +28,7 @@ export const Home: FC<{}> = ({}) => {
             <SearchBarDashboard/>
             <TotalDashboard top={"44vh"} left={"-12vw"}/>
             <TotalDetailDashboard top={"-6vh"} left={"38vw"}/>
-            {/* <DashboardLoss top={"44vh"} left={"-12vw"}/>
-            <DashboardEarn top={"-6vh"} left={"38vw"}/> */}
+            
         </Stack>
     )
 

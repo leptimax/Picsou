@@ -12,7 +12,7 @@ import { relative } from "path";
 
 
 
-export const DashboardEarn: FC<{top:string,left:string}> = ({top,left}) => {
+export const EarnChart: FC<{top:string,right:string}> = ({top,right}) => {
 
 
     const date = new Date()
@@ -185,11 +185,11 @@ export const DashboardEarn: FC<{top:string,left:string}> = ({top,left}) => {
 
     return(
         <Stack sx={{
-                    width:"40vw",
-                    height:"50vh",
+                    width:"35vw",
+                    height:"45vh",
                     backgroundColor:"rgb(0,0,0,0.3)",
-                    position:"relative",
-                    left:left,
+                    position:"absolute",
+                    right:right,
                     top:top,
                     borderRadius:"25px"
                     }}>
