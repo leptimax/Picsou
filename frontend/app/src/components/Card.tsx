@@ -59,11 +59,18 @@ export const Card: FC<{element:any}> = ({element}) => {
                       left:"10%", 
                       borderRadius:"20px", 
                       backgroundColor:"rgb(36,36,36)", 
-                      borderColor:"rgb(36,36,36)"}} 
+                      borderColor:"rgb(36,36,36)",
+                      color:"white"
+                    }} 
+                      
                       >
         <Grid container width={"100%"}>
             <Grid item sx={{position:"relative",left:"3%"}}>
-                <Typography>{element["type de mouvement"]}</Typography>
+            {element["type de mouvement"] === "GAINS" ? (
+                    <Typography sx={{color:"rgb(51,255,51)"}}>{element["type de mouvement"]}</Typography>
+                ) : (
+                    <Typography sx={{color:"rgb(255,0,0)"}}>{element["type de mouvement"]}</Typography>
+                )}
             </Grid>
 
             {element["type de mouvement"] === "GAINS" ? (
@@ -105,7 +112,12 @@ export const Card: FC<{element:any}> = ({element}) => {
             )}
             
             <Grid item sx={{position:"absolute",right:"5%"}}>
-                <Typography>{parseInt(element["montant"]).toFixed(2)}€</Typography>
+                {element["type de mouvement"] === "GAINS" ? (
+                    <Typography sx={{color:"rgb(51,255,51)"}}>{parseInt(element["montant"]).toFixed(2)}€</Typography>
+                ) : (
+                    <Typography sx={{color:"rgb(255,0,0)"}}>{parseInt(element["montant"]).toFixed(2)}€</Typography>
+                )}
+                
             </Grid>
         </Grid>
     </Button>

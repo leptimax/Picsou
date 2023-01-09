@@ -55,7 +55,12 @@ export const History: FC<{}> = ({}) => {
   // const [page,setPage] = useState(1)
 
 
-
+  useEffect(() => {
+    let link = window.location.href.split("/")[3].split("?")
+    if(link.length > 1){
+      setSearch(link[1])
+    }
+  },[])
 
 
   useEffect(() => {
