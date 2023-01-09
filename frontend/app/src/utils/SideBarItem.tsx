@@ -17,7 +17,7 @@ export const LIST_ICON = [
     [<HomeIcon /> , "Accueil","/"],
     [<AddIcon/>, "Ajout","/add"],
     [<HistoryIcon />, "Historique","/history"],
-    [<EqualizerIcon/>, "Statistiques","/"],
+    [<EqualizerIcon/>, "Statistiques","/statistics"],
     [<AccountTreeIcon/>, "test","/test"],
 
 ]
