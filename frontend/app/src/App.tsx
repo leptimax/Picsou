@@ -20,6 +20,7 @@ import { AddTransaction } from "./components/AddTransaction";
 import { Card } from "./components/Card";
 import { InfoTransaction } from "./components/InfoTransaction";
 import { Statistics } from "./components/Statistics";
+import { About } from "./components/About";
 
 
 export const AuthContext = createContext({});
@@ -147,6 +148,7 @@ export const App: FC = () => {
                     <Route exact path="/history" component={() => <History /> }/>
                     <Route exact path="/information" component={() => <InfoTransaction />} />
                     <Route exact path="/statistics" component={() => <Statistics />} />
+                    <Route exact path="/about" component={() => <About />} />
                   </Switch>
                 </Container> 
                 ) : (
