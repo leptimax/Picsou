@@ -9,6 +9,7 @@ import ReactEcharts from "echarts-for-react";
 import { Button, Grid, List, Typography } from "@mui/material";
 import { relative } from "path";
 import { SearchBar } from "./SearchBar";
+import { useHistory } from "react-router-dom";
 
 
 const MONTH = {
@@ -43,8 +44,9 @@ export const Card: FC<{element:any}> = ({element}) => {
     //         "mois":"JANVIER"
     //     }
     // }
+    const hist = useHistory()
     const handleClick = (id) => {
-        console.log(id)
+        hist.push("/information?"+id)
     }
 
     let detail = "aucun detail disponible"
@@ -113,9 +115,9 @@ export const Card: FC<{element:any}> = ({element}) => {
             
             <Grid item sx={{position:"absolute",right:"5%"}}>
                 {element["type de mouvement"] === "GAINS" ? (
-                    <Typography sx={{color:"rgb(51,255,51)"}}>{parseInt(element["montant"]).toFixed(2)}€</Typography>
+                    <Typography sx={{color:"rgb(51,255,51)"}}>{parseFloat(element["montant"]).toFixed(2)}€</Typography>
                 ) : (
-                    <Typography sx={{color:"rgb(255,0,0)"}}>{parseInt(element["montant"]).toFixed(2)}€</Typography>
+                    <Typography sx={{color:"rgb(255,0,0)"}}>{parseFloat(element["montant"]).toFixed(2)}€</Typography>
                 )}
                 
             </Grid>

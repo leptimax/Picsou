@@ -18,6 +18,7 @@ import { auth } from "./firebase";
 import { RefreshToken } from "./utils/Auth";
 import { AddTransaction } from "./components/AddTransaction";
 import { Card } from "./components/Card";
+import { InfoTransaction } from "./components/InfoTransaction";
 
 
 export const AuthContext = createContext({});
@@ -143,6 +144,7 @@ export const App: FC = () => {
                     <Route exact path="/" component={() => <Home />} />
                     <Route exact path="/add" component={() => <AddTransaction /> }/>
                     <Route exact path="/history" component={() => <History /> }/>
+                    <Route exact path="/information" component={() => <InfoTransaction />} />
                   </Switch>
                 </Container> 
                 ) : (

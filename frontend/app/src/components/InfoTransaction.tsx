@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react"
 import { FC } from "react"
 import { makeStyles } from "@mui/styles"
 
-import {addDoc,collection} from "@firebase/firestore"
+import {addDoc,collection, deleteDoc} from "@firebase/firestore"
 import { firestore } from "../firebase"
 import { Box } from "@mui/system"
 import { relative } from "path"
 import { useHistory } from "react-router-dom"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, getDocs, query, setDoc, where } from "firebase/firestore"
 
 
 
@@ -20,14 +20,12 @@ const style = makeStyles({
   }
 });
 
-export const AddTransaction: FC<{}> = ({}) => {
+export const InfoTransaction: FC<{}> = ({}) => {
 
-  const classes = style()
   const date = new Date()
   const ACTUAL_MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
   const ACTUAL_DAY = date.getDate()
   const ACTUAL_YEAR = date.getFullYear()
-  const ID = Math.floor(date.getTime()).toString() + Math.floor(Math.random()*200000).toString()
   
 
 
@@ -106,8 +104,20 @@ export const AddTransaction: FC<{}> = ({}) => {
   const [errorDestination,setErrorDestination] = useState(false)
   const [errorAmount,setErrorAmount] = useState(false)
 
-  const bdd = collection(firestore,"test")
+  const [id,setId] = useState("")
+
+  
   const history = useHistory()
+
+  useEffect(() => {
+    const link = window.location.href.split("/")[3].split("?")[1]
+    setId(link)
+  },[])
+
+  useEffect(() => {
+
+    getInfo()
+  },[id])
 
   useEffect(() => {
     if(type === "AUCUN"){
@@ -120,6 +130,41 @@ export const AddTransaction: FC<{}> = ({}) => {
       setDetails("")
     }
   },[type])
+
+  const getInfo = async () => {
+    const query_info = query(collection(firestore,"test"),where("id","==",id.toString()))
+
+    let temp = []
+    let element;
+
+    const snapshot = await getDocs(query_info)
+    snapshot.forEach((doc) => {
+      if(doc.data()){
+        element = doc.data()
+        setType(element["type de mouvement"])
+        setCategory(element["categorie"])
+        setAmount(parseFloat(element["montant"]).toFixed(2))
+        setDay(element["date"]["jour"])
+        setMonth(element["date"]["mois"])
+        setYear(element["date"]["année"])
+        setDetails(element["detail"])
+        setChoiceType(false)
+    
+        if(element["type de mouvement"] === "GAINS"){
+            setDestination(element["provenance"])
+        }
+        else{
+            setDestination(element["destination"])
+        }
+        }
+        
+        
+      })
+      console.log(id)
+
+    
+  }
+  console.log(type,category,amount,day,month,year,details)
 
   const handleChangeType = (e) => {
     setType(e.target.value)
@@ -214,7 +259,7 @@ export const AddTransaction: FC<{}> = ({}) => {
       let data = {}
       if(type === "GAINS"){
         data = {
-          "id":ID,
+          "id":id,
           "date":{"année":parseInt(year),
                   "mois":month,
                   "jour":parseInt(day)
@@ -228,7 +273,7 @@ export const AddTransaction: FC<{}> = ({}) => {
       }
       else{
         data = {
-          "id":ID,
+          "id":id,
           "date":{"année":parseInt(year),
                   "mois":month,
                   "jour":parseInt(day)
@@ -244,7 +289,9 @@ export const AddTransaction: FC<{}> = ({}) => {
       
 
       try {
-        const bdd = doc(firestore,"test",ID)
+        const Info = doc(firestore,"test",id)
+        await deleteDoc(Info)
+        const bdd = doc(firestore,"test",id)
         await setDoc(bdd,data)
     } catch(e){
       console.log(e)
@@ -306,7 +353,7 @@ export const AddTransaction: FC<{}> = ({}) => {
                             select
                             error={errorCategory}
                             disabled={choiceType}
-                            label="Categorie"
+                            label="Catégorie"
                             value={category}
                             onChange={handleChangeCategory}
                             helperText="Sélectionner la catégorie de votre mouvement"  >
@@ -437,7 +484,7 @@ export const AddTransaction: FC<{}> = ({}) => {
                   right:"5vw",
                   bottom:"5vh"
             }} >
-                  Valider
+                  Modifier
     </Button>
     </>
   )
