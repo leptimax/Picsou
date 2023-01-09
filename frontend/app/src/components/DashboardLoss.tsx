@@ -8,7 +8,7 @@ import { firestore } from "../firebase";
 import ReactEcharts from "echarts-for-react"; 
 import { Grid, Typography } from "@mui/material";
 import { relative } from "path";
-import { Test } from "./Test";
+import { Test } from "./History";
 
 
 

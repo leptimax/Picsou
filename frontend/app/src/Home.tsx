@@ -7,7 +7,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebase";
 import { DashboardLoss } from "./components/DashboardLoss";
 import { DashboardEarn } from "./components/DashboardEarn";
-import { Test } from "./components/Test";
+import { Test } from "./components/History";
 import { SearchBar } from "./components/SearchBar";
 import { ButtonDashboard } from "./components/ButtonDashboard";
 

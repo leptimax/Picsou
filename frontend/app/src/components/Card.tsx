@@ -28,7 +28,7 @@ const MONTH = {
 }
 
 
-export const Test2: FC<{element:any}> = ({element}) => {
+export const Card: FC<{element:any}> = ({element}) => {
 
     // const element={
     //     "id":"11111111111111111111111",

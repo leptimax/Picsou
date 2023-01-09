@@ -11,15 +11,15 @@ import { relative } from "path";
 import SearchIcon from '@mui/icons-material/Search';
 
 
-export const SearchBar: FC<{}> = () => {
+export const SearchBar: FC<{props:any}> = (props) => {
 
     const [value,setValue] = useState("")
-    // console.log(value)
+    // console.log(props.search)
 
 
     const handleSubmit = () => {
 
-      console.log(value)
+      console.log(props.search)
 
     }
 
@@ -31,7 +31,7 @@ export const SearchBar: FC<{}> = () => {
         <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Rechercher une transaction"
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => props.setSearch(e.target.value)}
         onKeyDown={(e) => {
           if(e.key === "Enter"){
               handleSubmit()
