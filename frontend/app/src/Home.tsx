@@ -7,10 +7,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "./firebase";
 import { DashboardLoss } from "./components/DashboardLoss";
 import { DashboardEarn } from "./components/DashboardEarn";
-import { Test } from "./components/History";
+import { TotalDashboard } from "./components/TotalDashboard";
 import { SearchBar } from "./components/SearchBar";
 import { ButtonDashboard } from "./components/ButtonDashboard";
 import { SearchBarDashboard } from "./components/SearchBaDashboard";
+import { TotalDetailDashboard } from "./components/TotalDetailDashboard";
 
 export const Home: FC<{}> = ({}) => {
 
@@ -25,8 +26,10 @@ export const Home: FC<{}> = ({}) => {
             {/* <Test/> */}
             <ButtonDashboard/>
             <SearchBarDashboard/>
-            <DashboardLoss top={"44vh"} left={"-12vw"}/>
-            <DashboardEarn top={"-6vh"} left={"38vw"}/>
+            <TotalDashboard top={"44vh"} left={"-12vw"}/>
+            <TotalDetailDashboard top={"-6vh"} left={"38vw"}/>
+            {/* <DashboardLoss top={"44vh"} left={"-12vw"}/>
+            <DashboardEarn top={"-6vh"} left={"38vw"}/> */}
         </Stack>
     )
 
