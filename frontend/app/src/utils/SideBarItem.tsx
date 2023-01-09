@@ -6,6 +6,8 @@ import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+
+import HistoryIcon from '@mui/icons-material/History';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 
@@ -14,7 +16,7 @@ export const LIST_ICON = [
 
     [<HomeIcon /> , "Accueil","/"],
     [<AddIcon/>, "Ajout","/add"],
-    [<SearchIcon />, "Rechercher","/"],
+    [<HistoryIcon />, "Historique","/history"],
     [<EqualizerIcon/>, "Statistiques","/"],
     [<AccountTreeIcon/>, "test","/test"],
 
