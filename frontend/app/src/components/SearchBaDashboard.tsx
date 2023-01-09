@@ -12,14 +12,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from "react-router-dom";
 
 
-export const SearchBar: FC<{props:any}> = (props) => {
+export const SearchBarDashboard: FC<{}> = () => {
 
-    const hist = useHistory()
+    const history = useHistory()
+    const [value,setValue] = useState("")
+    // console.log(props.search)
 
 
     const handleSubmit = () => {
 
-      hist.push("/history?"+props.search)
+      history.push("/history?"+value)
 
     }
 
@@ -30,9 +32,8 @@ export const SearchBar: FC<{props:any}> = (props) => {
           
         <InputBase
         sx={{ ml: 1, flex: 1 }}
-        value={props.search}
         placeholder="Rechercher une transaction"
-        onChange={(e) => props.setSearch(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
           if(e.key === "Enter"){
               handleSubmit()

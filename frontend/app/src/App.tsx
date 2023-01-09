@@ -10,14 +10,14 @@ import {Brightness7, Brightness4, } from "@mui/icons-material";
 
 import { Home } from "./Home";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Test } from "./components/Test";
+import { History } from "./components/History";
 import { SideBar } from "./components/Sidebar";
 import { Authentication } from "./components/AuthenticationPage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { RefreshToken } from "./utils/Auth";
 import { AddTransaction } from "./components/AddTransaction";
-import { Test2 } from "./components/Test2";
+import { Card } from "./components/Card";
 
 
 export const AuthContext = createContext({});
@@ -142,7 +142,7 @@ export const App: FC = () => {
                   <Switch>
                     <Route exact path="/" component={() => <Home />} />
                     <Route exact path="/add" component={() => <AddTransaction /> }/>
-                    <Route exact path="/history" component={() => <Test /> }/>
+                    <Route exact path="/history" component={() => <History /> }/>
                   </Switch>
                 </Container> 
                 ) : (
