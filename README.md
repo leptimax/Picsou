@@ -2,7 +2,7 @@
 
 A little program permitting to check and follow comptability in real time 
 
-## Installation (DEV)
+## Installation
 
 `Picsou` requires following dependancies :
 
@@ -18,18 +18,30 @@ Create a project (you can call it as you want).
 
 Once you are on the main page of your project, click on the "create" tab on the left of the screen and select "authentication". Now, click on "start" button and you will come on this screen : 
 
+
 ![alt text](./frontend/app/public/readme/authenticationPage.png)
 
-Now, go "sign-in method" and select "email/password" in native providers and activate the option before save. Now you can now manage all user for your application. The application don't have actually a method to sign in and register directly from the app so each user should be insert manually in the database. To do that, go on the tab users and click on "add user" and fill field with your information.
+
+Now, go "sign-in method" and select "email/password" in native providers and activate the option before save. 
+
+Now you can now manage all user for your application. The application don't have actually a method to sign in and register directly from the app so each user should be insert manually in the database. 
+
+To do that, go on the tab users and click on "add user" and fill field with your information.
 
 
 #### 2 - Database Creation
 
-Once the authentication has been set up, you need to create the firestore database. So click on the "create" tab on the left of your screen and select firestore database. Click on the "create a database" button, select "production" option and click on next, select the location for your cloud following your preferences and then click on activate.
+Once the authentication has been set up, you need to create the firestore database. 
+
+Click on the "create" tab on the left of your screen and select firestore database. 
+
+Click on the "create a database" button, select "production" option and click on next, select the location for your cloud following your preferences and then click on activate.
 
 You will come on this screen :
 
+
 ![alt text](./frontend/app/public/readme/firestorePage.png)
+
 
 Now go on rules tab on the top of the page and change the code by the following one : 
 
@@ -49,7 +61,7 @@ service cloud.firestore {
 
 Finally, click on "submit" button to save new rules
 
-### Dépot Picsou
+### Picsou Deposit
 
 Clone the Picsou project.
 
@@ -68,20 +80,23 @@ REACT_APP_APP_ID=""
 
 To fill each field, you should go on your project firebase home page and add an application web :
 
+
 ![alt text](./frontend/app/public/readme/HomePageApp.png)
 
 
 Call the application as you want, and now copy all information display here in your `.env` :
 
+
 ![alt text](./frontend/app/public/readme/info.png)
 
-Click on "add to th console" and now you can close this website.
+
+Click on "add to the console" and now you can close this website.
 
 
 Now you have just to launch the application : `docker-compose up -d`
 
 The application is now available here : http://127.0.0.1:10132/ (**without https**)
 
-## Licence
+## License
 
 This application is the intellectual property of leptimax, all rights reserved.
