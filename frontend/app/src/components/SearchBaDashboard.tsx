@@ -1,13 +1,5 @@
-import { Stack } from "@mui/system";
-import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
-import ReactEcharts from "echarts-for-react"; 
-import { AppBar, Box, Button, Grid, IconButton, InputBase, TextField, Toolbar, Typography } from "@mui/material";
-import { relative } from "path";
+import React, {FC, useState} from "react";
+import { AppBar, Box, Button, InputBase, Toolbar } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from "react-router-dom";
 
@@ -16,13 +8,10 @@ export const SearchBarDashboard: FC<{}> = () => {
 
     const history = useHistory()
     const [value,setValue] = useState("")
-    // console.log(props.search)
 
 
     const handleSubmit = () => {
-
       history.push("/history?"+value)
-
     }
 
     return(

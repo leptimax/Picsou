@@ -140,7 +140,7 @@ export const App: FC = () => {
             >
               <AuthContext.Provider value={{user}}>
                 {connect ? (
-                <Container className="test">
+                <Container className="global-container">
                   <SideBar setConnect={setConnect}/>
                   <Switch>
                     <Route exact path="/" component={() => <Home />} />

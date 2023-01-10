@@ -1,28 +1,20 @@
-import { Button, CSSObject, Drawer, FormControl, Grid, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, OutlinedInput, Stack, styled, TextField, Theme, useTheme } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import { Button, Grid, MenuItem, Stack, TextField } from "@mui/material"
+import React, { useContext, useEffect, useState } from "react"
 import { FC } from "react"
 import { makeStyles } from "@mui/styles"
 
-import {addDoc,collection} from "@firebase/firestore"
+import {collection} from "@firebase/firestore"
 import { firestore } from "../firebase"
 import { Box } from "@mui/system"
-import { relative } from "path"
 import { useHistory } from "react-router-dom"
 import { doc, setDoc } from "firebase/firestore"
+import { AuthContext } from "../App"
 
 
-
-const style = makeStyles({
-  customInputLabel: {
-    "& legend": {
-      visibility: "visible"
-    }
-  }
-});
 
 export const AddTransaction: FC<{}> = ({}) => {
 
-  const classes = style()
+  const {user} = useContext(AuthContext)
   const date = new Date()
   const ACTUAL_MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
   const ACTUAL_DAY = date.getDate()
@@ -106,7 +98,6 @@ export const AddTransaction: FC<{}> = ({}) => {
   const [errorDestination,setErrorDestination] = useState(false)
   const [errorAmount,setErrorAmount] = useState(false)
 
-  const bdd = collection(firestore,"test")
   const history = useHistory()
 
   useEffect(() => {
@@ -244,7 +235,7 @@ export const AddTransaction: FC<{}> = ({}) => {
       
 
       try {
-        const bdd = doc(firestore,"test",ID)
+        const bdd = doc(firestore,user.user.email,ID)
         await setDoc(bdd,data)
     } catch(e){
       console.log(e)

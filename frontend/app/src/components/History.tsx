@@ -1,22 +1,19 @@
-import { Stack } from "@mui/system";
 import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { firestore } from "../firebase";
-import ReactEcharts from "echarts-for-react"; 
-import { Button, Grid, List, ListItem, ListItemButton, MenuItem, TextField, Typography } from "@mui/material";
-import { relative } from "path";
+import {Grid, List, ListItem, MenuItem, TextField, Typography } from "@mui/material";
 import { SearchBar } from "./SearchBar";
 import { Card } from "./Card";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { AuthContext } from "../App";
 
 
 
 
 
 export const History: FC<{}> = ({}) => {
+
+  const {user} = useContext(AuthContext)
 
   const TYPE = ["TOUS","GAINS","DEPENSES"]
   const CATEGORY = {
@@ -52,8 +49,6 @@ export const History: FC<{}> = ({}) => {
   const [type,setType] = useState("TOUS")
   const [category,setCategory] = useState("TOUTES")
 
-  // const [page,setPage] = useState(1)
-
 
   useEffect(() => {
     let link = window.location.href.split("/")[3].split("?")
@@ -72,7 +67,6 @@ export const History: FC<{}> = ({}) => {
   },[listTransaction])
  
 
-  console.log(listYear)
 
   useEffect(() => {
     sort() 
@@ -133,18 +127,12 @@ export const History: FC<{}> = ({}) => {
   }
 
 
-//2 possibilité : soit par mois, soit par années,premier essai : par année
-  const changePage = (newPage) => {
-    console.log(newPage)
-  }
-//rajouter une limite ...
-
 
   
 
   const getElement = async () => {
-    const query_year = query(collection(firestore,"test"),orderBy("date","desc"))
-    const query_earn = query(collection(firestore,"test"),where("date.mois","==",month),where("date.année","==",year))
+    const query_year = query(collection(firestore,user.user.email),orderBy("date","desc"))
+    const query_earn = query(collection(firestore,user.user.email),where("date.mois","==",month),where("date.année","==",year))
     
     let temp = []
     let temp_year = []
@@ -176,14 +164,11 @@ export const History: FC<{}> = ({}) => {
       })
     setListTransaction(sort)
     setListTransactionSort(sort)
-    // sortBySources()
     setListYear(temp_year)
     
     
-    console.log("je load")
     
 }
-console.log(listTransactionSort)
   return(
     <>
       <SearchBar setSearch={setSearch} search={search}/>
@@ -316,31 +301,3 @@ console.log(listTransactionSort)
   )
 
 }
-
-
-
-
-// const [value,setValue] = useState("")
-    // // console.log(value)
-    // const date = new Date()
-    // const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    // const DAY = date.getDate()
-    // const YEAR = date.getFullYear()
-    // console.log(MONTH,DAY,YEAR)
-
-    // const getElement = async () => {
-    //   const query_info = query(collection(firestore,"test"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
-      
-
-    //   let extra_temp = 0
-    //   let pay_temp = 0
-    //   let gouv_temp = 0
-    //   let valueGlobalTemp = 0
-    //   let element;
-
-    //   const snapshot = await getDocs(query_info)
-    //   snapshot.forEach((doc) => {
-    //     console.log(doc.data())
-    //   })
-    // }
-    // getElement()

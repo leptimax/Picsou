@@ -1,14 +1,9 @@
 import { Stack } from "@mui/system";
 import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import ReactEcharts from "echarts-for-react"; 
-import { Grid, Typography } from "@mui/material";
-import { relative } from "path";
-import { Test } from "./History";
+import { AuthContext } from "../../App";
 
 
 
@@ -16,8 +11,8 @@ export const DetailEarnChart: FC<{top:string,right:string}> = ({top,right}) => {
 
 
     const date = new Date()
+    const {user} = useContext(AuthContext)
     const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    const DAY = date.getDate()
     const YEAR = date.getFullYear()
 
     const [extraEarn,setExtraEarn] = useState(0.0)
@@ -38,7 +33,7 @@ export const DetailEarnChart: FC<{top:string,right:string}> = ({top,right}) => {
 
     const getElement = async () => {
         
-        const query_total = query(collection(firestore,"test"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
+        const query_total = query(collection(firestore,user.user.email),where("date.année","==",YEAR),where("date.mois","==",MONTH))
         
 
         let extra_earn_temp = 0
@@ -129,24 +124,6 @@ export const DetailEarnChart: FC<{top:string,right:string}> = ({top,right}) => {
       ]
     };
 
-    const onChartClick = (params) => {
-      console.log(params)
-    }
-
-    const onChartHover = (params) => {
-      // console.log('Chart clicked', params.data.value);
-      // setValue(params.data.value)
-    };
-
-    const onChartOut = () => {
-      // setValue(valueGlobal)
-    }
-  
-    const onEvents = {
-      click: onChartClick,
-      mouseover: onChartHover,
-      mouseout:onChartOut
-    };
 
     return(
         <Stack sx={{
@@ -160,7 +137,7 @@ export const DetailEarnChart: FC<{top:string,right:string}> = ({top,right}) => {
                     }}>
                       
                     
-              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} onEvents={onEvents} />
+              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss}  />
 
               
             

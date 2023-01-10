@@ -1,13 +1,5 @@
-import { Stack } from "@mui/system";
-import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
-import ReactEcharts from "echarts-for-react"; 
-import { AppBar, Box, Button, Grid, IconButton, InputBase, TextField, Toolbar, Typography } from "@mui/material";
-import { relative } from "path";
+import React, {FC} from "react";
+import { AppBar, Box, Button, InputBase, Toolbar } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from "react-router-dom";
 

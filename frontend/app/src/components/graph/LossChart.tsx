@@ -1,14 +1,10 @@
 import { Stack } from "@mui/system";
 import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import ReactEcharts from "echarts-for-react"; 
-import { Grid, Typography } from "@mui/material";
-import { relative } from "path";
-import { Test } from "./History";
+import {Typography } from "@mui/material";
+import { AuthContext } from "../../App";
 
 
 
@@ -16,19 +12,18 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()
+    const {user} = useContext(AuthContext)
     const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    const DAY = date.getDate()
     const YEAR = date.getFullYear()
 
     const [positionLeft,setPositionLeft] = useState("0%")
-
-    // const [value,setValue] = useState(0.0)
     const [extra,setExtra] = useState(0)
     const [rent,setRent] = useState(0)
     const [shopping,setShopping] = useState(0)
     const [oil,setOil] = useState(0)
     const [activity, setActivity] = useState(0)
     const [valueGlobal,setValueGlobal] = useState(0)
+    const [size,setSize] = useState(35)
     
 
     useEffect(() => {
@@ -38,21 +33,55 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
     },[])
 
     useEffect(() => {
-
-      if(valueGlobal < 10){
-        setPositionLeft("44.2%")
+        
+      if(valueGlobal <= -1000000 && valueGlobal > -10000000){
+          setPositionLeft("38.2%")
+          setSize(27)
+      }
+      else if(valueGlobal <= -100000 && valueGlobal > -1000000){
+          setPositionLeft("38.2%")
+          setSize(30)
+      }
+      else if(valueGlobal <= -10000 && valueGlobal > -100000){
+          setPositionLeft("38.2%")
+      }
+      else if(valueGlobal <= -1000 && valueGlobal > -10000){
+          setPositionLeft("39.2%")
+      }
+      else if(valueGlobal <= -100 && valueGlobal > -1000){
+          setPositionLeft("40.2%")
+      }
+      else if(valueGlobal <= -10 && valueGlobal > -100){
+          setPositionLeft("41.2%")
+      }
+      else if(valueGlobal < 0 && valueGlobal > -10){
+          setPositionLeft("43.2%")
+      }
+      else if(valueGlobal < 10 && valueGlobal >= 0){
+          setPositionLeft("44.2%")
       }
       else if((valueGlobal >= 10) && (valueGlobal <100)){
-        setPositionLeft("43.5%")
+          setPositionLeft("43.5%")
       }
       else if((valueGlobal >= 100) && (valueGlobal < 1000)){
-        setPositionLeft("41.5%")
+          setPositionLeft("41.5%")
       }
       else if((valueGlobal >= 1000) && (valueGlobal < 10000)){
-        setPositionLeft("39.5%")
+          setPositionLeft("39.5%")
       }
       else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
-        setPositionLeft("38.5%")
+          setPositionLeft("38.5%")
+      }
+      else if((valueGlobal >= 100000) && (valueGlobal < 1000000)){
+          setPositionLeft("37.5%")
+      }
+      else if((valueGlobal >= 1000000) && (valueGlobal < 10000000)){
+          setPositionLeft("37.8%")
+          setSize(30)
+      }
+      else if((valueGlobal >= 10000000) && (valueGlobal < 100000000)){
+          setPositionLeft("38.2%")
+          setSize(27)
       }
 
     },[valueGlobal])
@@ -60,7 +89,7 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
 
     const getElement = async () => {
         
-        const query_loss = query(collection(firestore,"test"),where("type de mouvement","==","DEPENSES"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
+        const query_loss = query(collection(firestore,user.user.email),where("type de mouvement","==","DEPENSES"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
         
 
         let extra_temp = 0
@@ -185,24 +214,24 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
       ]
     };
 
-    const onChartClick = (params) => {
-      console.log(params)
-    }
+    // const onChartClick = (params) => {
+    //   console.log(params)
+    // }
 
-    const onChartHover = (params) => {
-      // console.log('Chart clicked', params.data.value);
-      // setValue(params.data.value)
-    };
+    // const onChartHover = (params) => {
+    //   // console.log('Chart clicked', params.data.value);
+    //   // setValue(params.data.value)
+    // };
 
-    const onChartOut = () => {
-      // setValue(valueGlobal)
-    }
+    // const onChartOut = () => {
+    //   // setValue(valueGlobal)
+    // }
   
-    const onEvents = {
-      click: onChartClick,
-      mouseover: onChartHover,
-      mouseout:onChartOut
-    };
+    // const onEvents = {
+    //   click: onChartClick,
+    //   mouseover: onChartHover,
+    //   mouseout:onChartOut
+    // };
 
     return(
         <Stack sx={{
@@ -216,12 +245,12 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
                     }}>
                       
                     
-              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} onEvents={onEvents} />
+              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} /*onEvents={onEvents}*/ />
               <Typography sx={{position:"absolute",
                                 left:positionLeft,
                                 top:"45%",
                                 textAlign:"center",
-                                fontSize:35,
+                                fontSize:size,
                                 fontWeight:"bold",
                                 
             }}>{valueGlobal.toFixed(2)}€</Typography>
