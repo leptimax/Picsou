@@ -1,9 +1,7 @@
-import { Stack } from "@mui/system";
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useState} from "react";
 
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { relative } from "path";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { auth } from "../firebase";
 import { SetToken } from "../utils/Auth";
 
@@ -11,10 +9,7 @@ import { SetToken } from "../utils/Auth";
 
 
 
-export const Authentication: FC<{
-                                    setUser:(value:object)=>any,
-                                    setConnect:(value:boolean) =>any
-                                }> = ({setUser,setConnect}) => {
+export const Authentication: FC<{setConnect:(value:boolean) =>any}> = ({setConnect}) => {
 
 
     const [email,setEmail] = useState("")

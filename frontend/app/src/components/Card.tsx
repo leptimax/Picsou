@@ -1,14 +1,5 @@
-import { Stack } from "@mui/system";
-import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
-import ReactEcharts from "echarts-for-react"; 
-import { Button, Grid, List, Typography } from "@mui/material";
-import { relative } from "path";
-import { SearchBar } from "./SearchBar";
+import React, {FC} from "react";
+import { Button, Grid, Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
 
@@ -31,19 +22,7 @@ const MONTH = {
 
 export const Card: FC<{element:any}> = ({element}) => {
 
-    // const element={
-    //     "id":"11111111111111111111111",
-    //     "type de mouvement":"GAINS",
-    //     "detail":"aucun detail disponible", //23
-    //     "montant":1000,
-    //     "provenance":"Leroy Merlin",//11
-    //     "catégorie":"Extra",
-    //     "date":{
-    //         "année":2023,
-    //         "jour":7,
-    //         "mois":"JANVIER"
-    //     }
-    // }
+
     const hist = useHistory()
     const handleClick = (id) => {
         hist.push("/information?"+id)
@@ -84,7 +63,7 @@ export const Card: FC<{element:any}> = ({element}) => {
                         <Typography>{element["categorie"]}</Typography>
                     </Grid>
                     <Grid item sx={{position:"absolute",left:"48%"}}>
-                        <Typography>{element["provenance"].substring(0,12)}</Typography>
+                        <Typography>{element["provenance"].substring(0,13)}</Typography>
                     </Grid>
                 </>
                 ) : (
@@ -98,7 +77,7 @@ export const Card: FC<{element:any}> = ({element}) => {
                     </Grid>
 
                     <Grid item sx={{position:"absolute",left:"48%"}}>
-                        <Typography>{element["destination"].substring(0,12)}</Typography>
+                        <Typography>{element["destination"].substring(0,13)}</Typography>
                     </Grid>
                 </>
                 )}
@@ -129,28 +108,3 @@ export const Card: FC<{element:any}> = ({element}) => {
 
 
 
-
-// const [value,setValue] = useState("")
-    // // console.log(value)
-    // const date = new Date()
-    // const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    // const DAY = date.getDate()
-    // const YEAR = date.getFullYear()
-    // console.log(MONTH,DAY,YEAR)
-
-    // const getElement = async () => {
-    //   const query_info = query(collection(firestore,"test"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
-      
-
-    //   let extra_temp = 0
-    //   let pay_temp = 0
-    //   let gouv_temp = 0
-    //   let valueGlobalTemp = 0
-    //   let element;
-
-    //   const snapshot = await getDocs(query_info)
-    //   snapshot.forEach((doc) => {
-    //     console.log(doc.data())
-    //   })
-    // }
-    // getElement()

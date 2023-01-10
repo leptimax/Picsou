@@ -1,13 +1,10 @@
 import { Stack } from "@mui/system";
 import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import ReactEcharts from "echarts-for-react"; 
-import { Grid, Typography } from "@mui/material";
-import { relative } from "path";
+import { Typography } from "@mui/material";
+import { AuthContext } from "../../App";
 
 
 
@@ -16,17 +13,16 @@ export const EarnChart: FC<{top:string,right:string}> = ({top,right}) => {
 
 
     const date = new Date()
+    const {user} = useContext(AuthContext)
     const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    const DAY = date.getDate()
     const YEAR = date.getFullYear()
 
     const [positionLeft,setPositionLeft] = useState("0%")
-
-    const [value,setValue] = useState(0.0)
     const [extra,setExtra] = useState(0.0)
     const [pay,setPay] = useState(0.0)
     const [gouv,setGouv] = useState(0.0)
     const [valueGlobal,setValueGlobal] = useState(0.0)
+    const [size,setSize] = useState(35)
     
 
     useEffect(() => {
@@ -36,28 +32,40 @@ export const EarnChart: FC<{top:string,right:string}> = ({top,right}) => {
     },[])
 
     useEffect(() => {
-
-      if(valueGlobal < 10){
-        setPositionLeft("44.2%")
+        
+      if(valueGlobal < 10 && valueGlobal >= 0){
+          setPositionLeft("43.5%")
       }
       else if((valueGlobal >= 10) && (valueGlobal <100)){
-        setPositionLeft("43.5%")
+          setPositionLeft("42.3%")
       }
       else if((valueGlobal >= 100) && (valueGlobal < 1000)){
-        setPositionLeft("41.5%")
+          setPositionLeft("40.5%")
       }
       else if((valueGlobal >= 1000) && (valueGlobal < 10000)){
-        setPositionLeft("39.5%")
+          setPositionLeft("39%")
       }
       else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
-        setPositionLeft("38.5%")
+          setPositionLeft("37.5%")
+      }
+      else if((valueGlobal >= 100000) && (valueGlobal < 1000000)){
+          setPositionLeft("37%")
+          setSize(31)
+      }
+      else if((valueGlobal >= 1000000) && (valueGlobal < 10000000)){
+          setPositionLeft("36.8%")
+          setSize(29)
+      }
+      else if((valueGlobal >= 10000000) && (valueGlobal < 100000000)){
+          setPositionLeft("36.8%")
+          setSize(26)
       }
 
     },[valueGlobal])
 
 
     const getElement = async () => {
-        const query_earn = query(collection(firestore,"test"),where("type de mouvement","==","GAINS"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
+        const query_earn = query(collection(firestore,user.user.email),where("type de mouvement","==","GAINS"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
         
 
         let extra_temp = 0
@@ -165,23 +173,23 @@ export const EarnChart: FC<{top:string,right:string}> = ({top,right}) => {
       ]
     };
 
-    const onChartClick = (params) => {
-      console.log(params)
-    }
+    // const onChartClick = (params) => {
+    //   console.log(params)
+    // }
 
-    const onChartHover = (params) => {
-      // console.log('Chart clicked', params.data.value);
-    };
+    // const onChartHover = (params) => {
+    //   // console.log('Chart clicked', params.data.value);
+    // };
 
-    const onChartOut = () => {
-      // setValue(valueGlobal)
-    }
+    // const onChartOut = () => {
+    //   // setValue(valueGlobal)
+    // }
   
-    const onEvents = {
-      click: onChartClick,
-      mouseover: onChartHover,
-      mouseout:onChartOut
-    };
+    // const onEvents = {
+    //   click: onChartClick,
+    //   mouseover: onChartHover,
+    //   mouseout:onChartOut
+    // };
 
     return(
         <Stack sx={{
@@ -195,12 +203,12 @@ export const EarnChart: FC<{top:string,right:string}> = ({top,right}) => {
                     }}>
                       
                     
-              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} onEvents={onEvents} />
+              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} /*onEvents={onEvents}*/ />
               <Typography sx={{position:"absolute",
                                 left:positionLeft,
                                 top:"45%",
                                 textAlign:"center",
-                                fontSize:35,
+                                fontSize:size,
                                 fontWeight:"bold",
                                 
             }}>{valueGlobal.toFixed(2)}€</Typography>

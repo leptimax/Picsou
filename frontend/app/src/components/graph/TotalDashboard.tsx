@@ -1,13 +1,10 @@
 import { Stack } from "@mui/system";
 import React, {FC, useContext, useEffect, useState} from "react";
-import {useQuery} from 'react-query'
-import { AuthContext, userContext } from "../App";
-import { authorizedFetch } from "../utils/Fetch";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import ReactEcharts from "echarts-for-react"; 
-import { Grid, Typography } from "@mui/material";
-import { relative } from "path";
+import { Typography } from "@mui/material";
+import { AuthContext } from "../../App";
 
 
 
@@ -16,8 +13,9 @@ export const TotalDashboard: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const date = new Date()
+
+    const {user} = useContext(AuthContext)
     const MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
-    const DAY = date.getDate()
     const YEAR = date.getFullYear()
 
     const [positionLeft,setPositionLeft] = useState("0%")
@@ -98,7 +96,7 @@ export const TotalDashboard: FC<{top:string,left:string}> = ({top,left}) => {
 
 
     const getElement = async () => {
-        const query_total = query(collection(firestore,"test"),where("date.année","==",YEAR),where("date.mois","==",MONTH))
+        const query_total = query(collection(firestore,user.user.email),where("date.année","==",YEAR),where("date.mois","==",MONTH))
         
 
         let earn_temp = 0
@@ -198,23 +196,23 @@ export const TotalDashboard: FC<{top:string,left:string}> = ({top,left}) => {
       ]
     };
 
-    const onChartClick = (params) => {
-      console.log(params)
-    }
+    // const onChartClick = (params) => {
+    //   console.log(params)
+    // }
 
-    const onChartHover = (params) => {
-      // console.log('Chart clicked', params.data.value);
-    };
+    // const onChartHover = (params) => {
+    //   // console.log('Chart clicked', params.data.value);
+    // };
 
-    const onChartOut = () => {
-      // setValue(valueGlobal)
-    }
+    // const onChartOut = () => {
+    //   // setValue(valueGlobal)
+    // }
   
-    const onEvents = {
-      click: onChartClick,
-      mouseover: onChartHover,
-      mouseout:onChartOut
-    };
+    // const onEvents = {
+    //   click: onChartClick,
+    //   mouseover: onChartHover,
+    //   mouseout:onChartOut
+    // };
 
     return(
         <Stack sx={{
@@ -228,7 +226,7 @@ export const TotalDashboard: FC<{top:string,left:string}> = ({top,left}) => {
                     }}>
                       
                     
-              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} onEvents={onEvents} />
+              <ReactEcharts style={{height:"100%",width:"100%",position:"relative",top:"0%",left:"0%"}} option={option_loss} /*onEvents={onEvents} *//>
               <Typography sx={{position:"absolute",
                                 left:positionLeft,
                                 top:"45%",

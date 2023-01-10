@@ -1,28 +1,19 @@
-import { Button, CSSObject, Drawer, FormControl, Grid, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, OutlinedInput, Stack, styled, TextField, Theme, useTheme } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, Stack, TextField} from "@mui/material"
+import React, { useContext, useEffect, useState } from "react"
 import { FC } from "react"
-import { makeStyles } from "@mui/styles"
 
-import {addDoc,collection, deleteDoc} from "@firebase/firestore"
+import {collection, deleteDoc} from "@firebase/firestore"
 import { firestore } from "../firebase"
 import { Box } from "@mui/system"
-import { relative } from "path"
 import { useHistory } from "react-router-dom"
 import { doc, getDocs, query, setDoc, where } from "firebase/firestore"
+import { AuthContext } from "../App"
 
-
-
-const style = makeStyles({
-  customInputLabel: {
-    "& legend": {
-      visibility: "visible"
-    }
-  }
-});
 
 export const InfoTransaction: FC<{}> = ({}) => {
 
   const date = new Date()
+  const {user} = useContext(AuthContext)
   const ACTUAL_MONTH = date.toLocaleString('default', { month: 'long' }).toUpperCase()
   const ACTUAL_DAY = date.getDate()
   const ACTUAL_YEAR = date.getFullYear()
@@ -38,7 +29,6 @@ export const InfoTransaction: FC<{}> = ({}) => {
     "DEPENSES":["AUCUNE","Loyer","Courses","Essence","Activité/Sortie","Extra"]
 
   }
-  const DAY = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
   const MONTH = {
     "JANVIER":{
       "days":31,
@@ -103,6 +93,7 @@ export const InfoTransaction: FC<{}> = ({}) => {
   const [errorCategory,setErrorCategory] = useState(false)
   const [errorDestination,setErrorDestination] = useState(false)
   const [errorAmount,setErrorAmount] = useState(false)
+  const [open,setOpen] = useState(false)
 
   const [id,setId] = useState("")
 
@@ -132,7 +123,7 @@ export const InfoTransaction: FC<{}> = ({}) => {
   },[type])
 
   const getInfo = async () => {
-    const query_info = query(collection(firestore,"test"),where("id","==",id.toString()))
+    const query_info = query(collection(firestore,user.user.email),where("id","==",id.toString()))
 
     let temp = []
     let element;
@@ -160,11 +151,9 @@ export const InfoTransaction: FC<{}> = ({}) => {
         
         
       })
-      console.log(id)
 
     
   }
-  console.log(type,category,amount,day,month,year,details)
 
   const handleChangeType = (e) => {
     setType(e.target.value)
@@ -289,9 +278,9 @@ export const InfoTransaction: FC<{}> = ({}) => {
       
 
       try {
-        const Info = doc(firestore,"test",id)
-        await deleteDoc(Info)
-        const bdd = doc(firestore,"test",id)
+        const info = doc(firestore,user.user.email,id)
+        await deleteDoc(info)
+        const bdd = doc(firestore,user.user.email,id)
         await setDoc(bdd,data)
     } catch(e){
       console.log(e)
@@ -302,10 +291,30 @@ export const InfoTransaction: FC<{}> = ({}) => {
     setErrorType(false)
     setErrorCategory(false)
 
-    history.push("/")
+    history.push("/history")
   }
 
 }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleDelete = async() => {
+    try{
+      const info = doc(firestore,user.user.email,id)
+      await deleteDoc(info)
+    }
+    catch(e){
+      console.log(e)
+    }
+    setOpen(false)
+    history.push("/history")
+    
+  }
 
   return(
     <>
@@ -475,8 +484,43 @@ export const InfoTransaction: FC<{}> = ({}) => {
            
     </Box>
     <Button  
+            variant="contained" color="error" 
+            type="submit"
+            onClick={handleClickOpen}
+            sx={{ 
+                  color:"black",
+                  width:"10vw",
+                  position:"absolute",
+                  left:"10vw",
+                  bottom:"5vh"
+            }} >
+                  Supprimer
+    </Button>
+
+    <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle id="alert-delete-transaction" sx={{textAlign:"center"}}>
+          Avertissement
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-delete-description">
+            Vous êtes sur le point de supprimer cette transaction, souhaitez vous continuer ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Annuler</Button>
+          <Button onClick={handleDelete} autoFocus sx={{color:"red"}}>
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+    <Button  
             variant="contained" color="warning" 
-            type="sublit"
+            type="submit"
             onClick={handleSubmit}
             sx={{ 
                   width:"10vw",
