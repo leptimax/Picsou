@@ -52,7 +52,9 @@ export const DetailLossChart: FC<{top:string,left:string}> = ({top,left}) => {
                 
                 
                 case "Extra":{
+                  if(element["type de mouvement"] === "DEPENSES"){
                     extra_loss_temp = extra_loss_temp + parseFloat(element["montant"])
+                  }
                     break;
                 }
                 case "Courses":{

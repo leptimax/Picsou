@@ -20,7 +20,7 @@ export const ButtonDashboard: FC<{}> = () => {
     }
 
     const handleClickStatistic = () => {
-        history.push("/statistic")
+        history.push("/statistics")
     }
 
     return(

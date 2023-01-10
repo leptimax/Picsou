@@ -56,7 +56,9 @@ export const DetailEarnChart: FC<{top:string,right:string}> = ({top,right}) => {
                     break;
                   }
                   case "Extra":{
-                    extra_earn_temp = extra_earn_temp + parseFloat(element["montant"])  
+                    if(element["type de mouvement"] === "GAINS"){
+                      extra_earn_temp = extra_earn_temp + parseFloat(element["montant"])  
+                    }
                     break;
                   }
                 

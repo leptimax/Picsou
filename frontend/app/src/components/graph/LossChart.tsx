@@ -34,55 +34,33 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
 
     useEffect(() => {
         
-      if(valueGlobal <= -1000000 && valueGlobal > -10000000){
-          setPositionLeft("38.2%")
-          setSize(27)
-      }
-      else if(valueGlobal <= -100000 && valueGlobal > -1000000){
-          setPositionLeft("38.2%")
-          setSize(30)
-      }
-      else if(valueGlobal <= -10000 && valueGlobal > -100000){
-          setPositionLeft("38.2%")
-      }
-      else if(valueGlobal <= -1000 && valueGlobal > -10000){
-          setPositionLeft("39.2%")
-      }
-      else if(valueGlobal <= -100 && valueGlobal > -1000){
-          setPositionLeft("40.2%")
-      }
-      else if(valueGlobal <= -10 && valueGlobal > -100){
-          setPositionLeft("41.2%")
-      }
-      else if(valueGlobal < 0 && valueGlobal > -10){
-          setPositionLeft("43.2%")
-      }
-      else if(valueGlobal < 10 && valueGlobal >= 0){
-          setPositionLeft("44.2%")
-      }
-      else if((valueGlobal >= 10) && (valueGlobal <100)){
-          setPositionLeft("43.5%")
-      }
-      else if((valueGlobal >= 100) && (valueGlobal < 1000)){
-          setPositionLeft("41.5%")
-      }
-      else if((valueGlobal >= 1000) && (valueGlobal < 10000)){
-          setPositionLeft("39.5%")
-      }
-      else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
-          setPositionLeft("38.5%")
-      }
-      else if((valueGlobal >= 100000) && (valueGlobal < 1000000)){
-          setPositionLeft("37.5%")
-      }
-      else if((valueGlobal >= 1000000) && (valueGlobal < 10000000)){
-          setPositionLeft("37.8%")
-          setSize(30)
-      }
-      else if((valueGlobal >= 10000000) && (valueGlobal < 100000000)){
-          setPositionLeft("38.2%")
-          setSize(27)
-      }
+    if(valueGlobal < 10 && valueGlobal >= 0){
+        setPositionLeft("43.5%")
+    }
+    else if((valueGlobal >= 10) && (valueGlobal <100)){
+        setPositionLeft("42.3%")
+    }
+    else if((valueGlobal >= 100) && (valueGlobal < 1000)){
+        setPositionLeft("40.5%")
+    }
+    else if((valueGlobal >= 1000) && (valueGlobal < 10000)){
+        setPositionLeft("39%")
+    }
+    else if((valueGlobal >= 10000) && (valueGlobal < 100000)){
+        setPositionLeft("37.5%")
+    }
+    else if((valueGlobal >= 100000) && (valueGlobal < 1000000)){
+        setPositionLeft("37%")
+        setSize(31)
+    }
+    else if((valueGlobal >= 1000000) && (valueGlobal < 10000000)){
+        setPositionLeft("36.8%")
+        setSize(29)
+    }
+    else if((valueGlobal >= 10000000) && (valueGlobal < 100000000)){
+        setPositionLeft("36.8%")
+        setSize(26)
+    }
 
     },[valueGlobal])
 
@@ -126,7 +104,7 @@ export const LossChart: FC<{top:string,left:string}> = ({top,left}) => {
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
               }
-              case "Essences":{
+              case "Essence":{
                 oil_temp = oil_temp + parseFloat(element["montant"])
                 valueGlobalTemp = valueGlobalTemp  + parseFloat(element["montant"])
                 break;
